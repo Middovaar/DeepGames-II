@@ -1,0 +1,11 @@
+{
+	"Intro":{
+		"A": {"text":["te", "st", " ", "te", "st"], "Speed": 1.0, "Location": 0}, 
+		"B": {"text":["te", "st", " ", "te", "st"], "Speed": 1.0},
+		"C": {"text":["te", "st", " ", "te", "st"], "Speed": 1.0},
+		
+		"Description": "Triggered after game start",
+		"Items": 3,
+	},
+	
+}

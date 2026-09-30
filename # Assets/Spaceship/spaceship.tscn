@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbx8ak5cjwvwq"]
+[gd_scene format=3 uid="uid://dbx8ak5cjwvwq"]
 
-[ext_resource type="Script" uid="uid://cf22fsw8e3dbn" path="res://Spaceship/spaceship.gd" id="1_llyuj"]
+[ext_resource type="Script" uid="uid://cf22fsw8e3dbn" path="res://# Assets/Spaceship/spaceship.gd" id="1_llyuj"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dth4k"]
 size = Vector2(20, 48)
