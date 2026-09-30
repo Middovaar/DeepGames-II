@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b3b86uod3ptlw"]
 
-[ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://Spaceship/spaceship.tscn" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://587vjakrw3do" path="res://stage_manager.gd" id="2_e2o6t"]
-[ext_resource type="Script" uid="uid://duq1r2rktyy31" path="res://stage_2_zone.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://587vjakrw3do" path="res://# Scripts/stage_manager.gd" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://duq1r2rktyy31" path="res://# Scripts/stage_2_zone.gd" id="3_feb5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
 size = Vector2(400, 20)

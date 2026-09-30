@@ -1,0 +1,56 @@
+class_name Textbox
+extends Control
+
+@export_category("TextBox Properties")
+@export_range(0.01, 1.00, 0.01,"or_greater", "suffix:sec") var AnimationSpeed:float = 0.07
+
+#region that contains Singleton Path to Dialogue JSON
+@onready var DialoguePath = "res://# Assets/Dialogue/DialogueData.json"
+# Dialogue Singleton
+var Dialogue: Dictionary = {} 
+#endregion
+
+### Text Handlers ###
+@export_category("Text State")
+@export var DisplayedText = ""
+@export var TextIsAnimated: bool = false
+@export_enum("lowmid", "highmid", "right", "left") var TextPosition: int
+
+var TextCompounder #Used as a container to link together strings
+var ReadyText:Array #Word-based Array
+@export var MayCloseEarly: bool = false
+
+var HasSelectedSomething: bool
+var SelectedOption: bool
+
+## Outgoing Signals >>
+signal FinishedDialogueBlock(DialogueBlock:int)
+signal DialogueOptions(Options:String)
+
+func _ready():
+	
+	var file = FileAccess.open(DialoguePath, FileAccess.READ) #open JSON as readable
+	var parser = file.get_as_text() #extract data as String
+	var jsonObject = JSON.new() #create JSON object
+	assert(file.file_exists(DialoguePath), "Attempted to load Json, and json does not exist!") #Throw error when no JSON found
+	jsonObject.parse(parser)
+	Dialogue = jsonObject.data
+	$Display.text = "" #nulls text when loaded
+	HasSelectedSomething = false #makes sure they are nulled
+	SelectedOption = false #makes sure they are nulled
+	
+
+func RenderText(DialogueUUID):
+	pass
+
+
+func DialogueSwitchBoard(Req):
+	match Req:
+		pass
+
+
+## Resets displayed Dialogue to text.EMPTYSTRING
+func DialogueClear(): 
+	%TextBox.text = ""
+	DisplayedText = ""
+	ReadyText = []
