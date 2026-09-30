@@ -1,8 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3b86uod3ptlw"]
+[gd_scene format=3 uid="uid://b3b86uod3ptlw"]
 
 [ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://Spaceship/spaceship.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://587vjakrw3do" path="res://stage_manager.gd" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://duq1r2rktyy31" path="res://stage_2_zone.gd" id="3_feb5d"]
 
-[node name="main" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
+size = Vector2(400, 20)
 
-[node name="Spaceship" parent="." instance=ExtResource("1_80nbo")]
+[node name="main" type="Node2D" unique_id=812561369]
+
+[node name="Spaceship" parent="." unique_id=315184584 groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(512, 304)
+
+[node name="StageManager" type="Node" parent="." unique_id=308570513]
+script = ExtResource("2_e2o6t")
+
+[node name="Stage1Zone" type="Area2D" parent="StageManager" unique_id=1298627277]
+position = Vector2(512, 310)
+script = ExtResource("3_feb5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage1Zone" unique_id=1921677395]
+shape = SubResource("RectangleShape2D_e2o6t")
+
+[node name="Stage2Zone" type="Area2D" parent="StageManager" unique_id=1020721672]
+position = Vector2(512, 240)
+script = ExtResource("3_feb5d")
+stage_number = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage2Zone" unique_id=500893371]
+shape = SubResource("RectangleShape2D_e2o6t")
+
+[node name="Stage3Zone" type="Area2D" parent="StageManager" unique_id=1040375886]
+position = Vector2(512, 170)
+script = ExtResource("3_feb5d")
+stage_number = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage3Zone" unique_id=2034630840]
+shape = SubResource("RectangleShape2D_e2o6t")
+
+[node name="Stage4Zone" type="Area2D" parent="StageManager" unique_id=1799390076]
+position = Vector2(512, 100)
+script = ExtResource("3_feb5d")
+stage_number = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage4Zone" unique_id=503782743]
+shape = SubResource("RectangleShape2D_e2o6t")
+
+[node name="Stage5Zone" type="Area2D" parent="StageManager" unique_id=344683008]
+position = Vector2(512, 30)
+script = ExtResource("3_feb5d")
+stage_number = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage5Zone" unique_id=1044119280]
+shape = SubResource("RectangleShape2D_e2o6t")
