@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bwtemmjh4pcbq"]
+
+[ext_resource type="Script" uid="uid://de23b8acsgkia" path="res://# Assets/MM/main_menu.gd" id="1_2grre"]
+[ext_resource type="Texture2D" uid="uid://c81dwoqdm3nkj" path="res://# Assets/MM/BackgroundDebug.png" id="2_0d5ha"]
+[ext_resource type="Texture2D" uid="uid://dfanqa0nr73hs" path="res://# Assets/MM/Start.png" id="3_ay6u0"]
+[ext_resource type="Script" uid="uid://cqt52vif6e5v" path="res://# Assets/MM/MenuButton.gd" id="4_8t8mp"]
+[ext_resource type="Texture2D" uid="uid://cxmi6o2kkghrd" path="res://# Assets/MM/StartPress.png" id="5_ay6u0"]
+[ext_resource type="Texture2D" uid="uid://ctb062gf0ewic" path="res://# Assets/MM/Quit.png" id="5_mfxuw"]
+[ext_resource type="Texture2D" uid="uid://bfdyna6o38amp" path="res://# Assets/MM/QuitPress.png" id="7_8t8mp"]
+
+[node name="MainMenu" type="Node2D" unique_id=446504690]
+script = ExtResource("1_2grre")
+
+[node name="BackgroundDebug" type="Sprite2D" parent="." unique_id=381650702]
+position = Vector2(954, 541)
+scale = Vector2(1.037, 1.04)
+texture = ExtResource("2_0d5ha")
+metadata/_edit_lock_ = true
+
+[node name="UIManager" type="Control" parent="." unique_id=831963201]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1922.0
+offset_bottom = 1081.0
+
+[node name="Start" type="Button" parent="UIManager" unique_id=132374566]
+layout_mode = 0
+offset_left = 681.0
+offset_top = 602.0
+offset_right = 1259.0
+offset_bottom = 768.0
+icon = ExtResource("3_ay6u0")
+flat = true
+script = ExtResource("4_8t8mp")
+FreeTexture = ExtResource("3_ay6u0")
+HoverTexture = ExtResource("5_ay6u0")
+
+[node name="Quit" type="Button" parent="UIManager" unique_id=1851326024]
+layout_mode = 0
+offset_left = 681.0
+offset_top = 814.0
+offset_right = 1259.0
+offset_bottom = 979.0
+icon = ExtResource("5_mfxuw")
+flat = true
+script = ExtResource("4_8t8mp")
+FreeTexture = ExtResource("5_mfxuw")
+HoverTexture = ExtResource("7_8t8mp")
+
+[connection signal="focus_entered" from="UIManager/Start" to="UIManager/Start" method="_on_focus_entered"]
+[connection signal="focus_exited" from="UIManager/Start" to="UIManager/Start" method="_on_focus_exited"]
+[connection signal="mouse_entered" from="UIManager/Start" to="UIManager/Start" method="_on_focus_entered"]
+[connection signal="mouse_exited" from="UIManager/Start" to="UIManager/Start" method="_on_focus_exited"]
+[connection signal="pressed" from="UIManager/Start" to="." method="_on_start_pressed"]
+[connection signal="focus_entered" from="UIManager/Quit" to="UIManager/Quit" method="_on_focus_entered"]
+[connection signal="focus_exited" from="UIManager/Quit" to="UIManager/Quit" method="_on_focus_exited"]
+[connection signal="mouse_entered" from="UIManager/Quit" to="UIManager/Quit" method="_on_focus_entered"]
+[connection signal="mouse_exited" from="UIManager/Quit" to="UIManager/Quit" method="_on_focus_exited"]
+[connection signal="pressed" from="UIManager/Quit" to="." method="_on_quit_pressed"]
