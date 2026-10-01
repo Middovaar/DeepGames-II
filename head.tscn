@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dfpndurrenjhr"]
 
 [ext_resource type="Script" uid="uid://csdmvv4u5qt3e" path="res://GameHead.gd" id="1_hukeq"]
-[ext_resource type="PackedScene" uid="uid://bwtemmjh4pcbq" path="res://# Assets/MainMenu.tscn" id="1_xe7ry"]
+[ext_resource type="PackedScene" uid="uid://bwtemmjh4pcbq" path="res://# Assets/MM/MainMenu.tscn" id="1_xe7ry"]
 
 [node name="Head" type="Node2D" unique_id=579993194]
 script = ExtResource("1_hukeq")

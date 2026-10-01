@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://d3njf2ivopwgg"]
 
+[ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="1_4k1er"]
+
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
+
+[node name="Background" parent="." unique_id=258432810 instance=ExtResource("1_4k1er")]
