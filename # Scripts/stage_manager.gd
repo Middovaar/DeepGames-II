@@ -16,7 +16,8 @@ func enter_stage(new_stage: int) -> void:
 	if new_stage < 1 or new_stage > 5:
 		push_warning("Stage must be between 1 and 5.")
 		return
-
+	if current_stage == 5:
+		return
 	if new_stage == current_stage:
 		return
 
