@@ -12,8 +12,8 @@ gravity = Vector3(0, 98, 0)
 
 [sub_resource type="Gradient" id="Gradient_5xxl2"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.26959246, 0.35423198, 0.47335422)
-colors = PackedColorArray(0.83088076, 0.0013792348, 0.9396195, 1, 1, 0, 0, 1, 0.045977175, 0.6179428, 0.56510323, 1, 0.85882354, 0.85882354, 0.85882354, 0)
+offsets = PackedFloat32Array(0, 0.22647059, 0.35588235, 0.46764705)
+colors = PackedColorArray(0.19465175, 6.5951164e-05, 0.22529557, 1, 0.2154918, 2.45166e-07, 4.813075e-08, 1, 0.068798296, 0.06879827, 0.068798244, 1, 0.85882354, 0.85882354, 0.85882354, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_86y76"]
 seed = 20
