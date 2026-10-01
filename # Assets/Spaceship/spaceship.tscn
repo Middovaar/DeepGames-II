@@ -15,3 +15,5 @@ shape = SubResource("RectangleShape2D_dth4k")
 [node name="Spaceship" type="Sprite2D" parent="." unique_id=629792556]
 scale = Vector2(0.1899227, 0.18992265)
 texture = ExtResource("2_pjt0p")
+
+[node name="Camera2D" type="Camera2D" parent="Spaceship" unique_id=1309439016]

@@ -22,14 +22,14 @@ position = Vector2(512, 304)
 script = ExtResource("2_e2o6t")
 
 [node name="Stage1Zone" type="Area2D" parent="StageManager" unique_id=1298627277]
-position = Vector2(512, 310)
+position = Vector2(508, -122)
 script = ExtResource("3_feb5d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage1Zone" unique_id=1921677395]
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Stage2Zone" type="Area2D" parent="StageManager" unique_id=1020721672]
-position = Vector2(512, 240)
+position = Vector2(523, -875)
 script = ExtResource("3_feb5d")
 stage_number = 2
 
@@ -37,7 +37,7 @@ stage_number = 2
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Stage3Zone" type="Area2D" parent="StageManager" unique_id=1040375886]
-position = Vector2(512, 170)
+position = Vector2(514, -1541)
 script = ExtResource("3_feb5d")
 stage_number = 3
 
@@ -45,7 +45,7 @@ stage_number = 3
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Stage4Zone" type="Area2D" parent="StageManager" unique_id=1799390076]
-position = Vector2(512, 100)
+position = Vector2(504, -2583)
 script = ExtResource("3_feb5d")
 stage_number = 4
 
@@ -53,7 +53,7 @@ stage_number = 4
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Stage5Zone" type="Area2D" parent="StageManager" unique_id=344683008]
-position = Vector2(512, 30)
+position = Vector2(456, -3802)
 script = ExtResource("3_feb5d")
 stage_number = 5
 
@@ -61,7 +61,7 @@ stage_number = 5
 shape = SubResource("RectangleShape2D_e2o6t")
 
 [node name="Blackhole" type="Area2D" parent="." unique_id=1863874516]
-position = Vector2(1161, 825)
+position = Vector2(-1193, -5116)
 
 [node name="Sprite2D" type="Sprite2D" parent="Blackhole" unique_id=1067477491]
 texture = ExtResource("4_fc0e3")
@@ -69,3 +69,13 @@ texture = ExtResource("4_fc0e3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blackhole" unique_id=360167518]
 position = Vector2(11, -12)
 shape = SubResource("CircleShape2D_7jktm")
+
+[node name="EndingOverlay" type="CanvasLayer" parent="." unique_id=1812485582]
+
+[node name="WhiteScreen" type="ColorRect" parent="EndingOverlay" unique_id=1387686597]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
