@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var ControllableStars:bool = true
 @export var SpaceSpeed: Vector2 = Vector2.ZERO # Bounded between -1.0 and 1.0
 var _star_offset: Vector2 = Vector2.ZERO
 
@@ -18,11 +19,12 @@ func _process(delta: float) -> void:
 		stars_sprite.material.set_shader_parameter("SpaceSpeed", SpaceSpeed)
 
 func _physics_process(delta):
-	if Input.is_action_pressed("up"):
-		SpaceSpeed.y = lerpf(SpaceSpeed.y, -1.0, 0.1)
-	if Input.is_action_pressed("down"):
-		SpaceSpeed.y = lerpf(SpaceSpeed.y, 1.0, 0.1)
-	if Input.is_action_pressed("right"):
-		SpaceSpeed.x = lerpf(SpaceSpeed.x, -1.0, 0.1)
-	if Input.is_action_pressed("left"):
-		SpaceSpeed.x = lerpf(SpaceSpeed.x, 1.0, 0.1)
+	if ControllableStars:
+		if Input.is_action_pressed("up"):
+			SpaceSpeed.y = lerpf(SpaceSpeed.y, -1.0, 0.1)
+		if Input.is_action_pressed("down"):
+			SpaceSpeed.y = lerpf(SpaceSpeed.y, 1.0, 0.1)
+		if Input.is_action_pressed("right"):
+			SpaceSpeed.x = lerpf(SpaceSpeed.x, -1.0, 0.1)
+		if Input.is_action_pressed("left"):
+			SpaceSpeed.x = lerpf(SpaceSpeed.x, 1.0, 0.1)
