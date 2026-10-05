@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://uwntk5w6440x"]
+
+[ext_resource type="Texture2D" uid="uid://dmbj3rdkcikkv" path="res://# Assets/Program-Assets/icon.svg" id="1_fwfnj"]
+[ext_resource type="Shader" uid="uid://ddkn7wy0dhbsd" path="res://# Assets/Art/Shaders/scrolling_starry_background.gdshader" id="2_8yhyv"]
+[ext_resource type="Texture2D" uid="uid://bcchdtbietyaw" path="res://# Assets/Art/Shaders/star_seven.png" id="3_mde2k"]
+[ext_resource type="Texture2D" uid="uid://poes2vcgo4yt" path="res://# Assets/Art/Shaders/quest_marker.png" id="4_5xxl2"]
+[ext_resource type="Script" uid="uid://boncntjmpivsf" path="res://# Assets/Art/quest_marker.gd" id="5_86y76"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qgne5"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+
+[sub_resource type="Gradient" id="Gradient_5xxl2"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.22647059, 0.35588235, 0.46764705)
+colors = PackedColorArray(0.19465175, 6.5951164e-05, 0.22529557, 1, 0.2154918, 2.45166e-07, 4.813075e-08, 1, 0.068798296, 0.06879827, 0.068798244, 1, 0.85882354, 0.85882354, 0.85882354, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_86y76"]
+seed = 20
+frequency = 0.0019
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fabh7"]
+noise = SubResource("FastNoiseLite_86y76")
+color_ramp = SubResource("Gradient_5xxl2")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j5lt8"]
+shader = ExtResource("2_8yhyv")
+shader_parameter/stars_speed = Vector2(0, 0)
+shader_parameter/stars_density = 0.01
+
+[node name="Node" type="Node" unique_id=1256197848]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1978884566]
+position = Vector2(3, -1)
+texture = ExtResource("1_fwfnj")
+process_material = SubResource("ParticleProcessMaterial_qgne5")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=432624781]
+offset_left = 751.0
+offset_top = -19.0
+offset_right = 1320.0
+offset_bottom = 568.0
+texture = SubResource("NoiseTexture2D_fabh7")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1029487095]
+material = SubResource("ShaderMaterial_j5lt8")
+offset_left = 786.0
+offset_top = -129.0
+offset_right = 1234.0
+offset_bottom = 695.0
+texture = ExtResource("3_mde2k")
+
+[node name="QuestMarker" type="Sprite2D" parent="." unique_id=1701132137]
+position = Vector2(450.12122, 577.1212)
+scale = Vector2(10.757576, 10.757576)
+texture = ExtResource("4_5xxl2")
+script = ExtResource("5_86y76")

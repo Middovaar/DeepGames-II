@@ -28,6 +28,12 @@ window/size/viewport_height=1080
 
 project/assembly_name="DeepGamesII"
 
+[file_customization]
+
+folder_colors={
+"res://# Assets/Art/": "orange"
+}
+
 [input]
 
 left={
