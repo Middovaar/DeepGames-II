@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci2lw06l2wot2"
-path="res://.godot/imported/AstronautAvatar.png-6391324848717e06bbc716b17389b7ab.ctex"
+uid="uid://bcchdtbietyaw"
+path="res://.godot/imported/star_seven.png-34ee3cfd47d29689a0ab60e80d991569.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://# Assets/Art-Assets/UI/AstronautAvatar.png"
-dest_files=["res://.godot/imported/AstronautAvatar.png-6391324848717e06bbc716b17389b7ab.ctex"]
+source_file="res://# Assets/Art/Shaders/star_seven.png"
+dest_files=["res://.godot/imported/star_seven.png-34ee3cfd47d29689a0ab60e80d991569.ctex"]
 
 [params]
 
