@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bcchdtbietyaw" path="res://# Assets/Art/Shaders/star_seven.png" id="3_mde2k"]
 [ext_resource type="Texture2D" uid="uid://poes2vcgo4yt" path="res://# Assets/Art/Shaders/quest_marker.png" id="4_5xxl2"]
 [ext_resource type="Script" uid="uid://boncntjmpivsf" path="res://# Assets/Art/quest_marker.gd" id="5_86y76"]
+[ext_resource type="Shader" uid="uid://dldagqo8ndo73" path="res://# Assets/Art/Shaders/space_noise.gdshader" id="6_86y76"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qgne5"]
 particle_flag_disable_z = true
@@ -29,6 +30,26 @@ shader = ExtResource("2_8yhyv")
 shader_parameter/stars_speed = Vector2(0, 0)
 shader_parameter/stars_density = 0.01
 
+[sub_resource type="Gradient" id="Gradient_j5lt8"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.33695653, 0.60507244)
+colors = PackedColorArray(1, 0.30980393, 1, 1, 0, 0.87058824, 0.87058824, 1, 0, 0, 0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_emdnf"]
+frequency = 0.0131
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vekqr"]
+noise = SubResource("FastNoiseLite_emdnf")
+color_ramp = SubResource("Gradient_j5lt8")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fabh7"]
+shader = ExtResource("6_86y76")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_vekqr")
+shader_parameter/scale = 0.09
+shader_parameter/min_scale = 0.01
+
 [node name="Node" type="Node" unique_id=1256197848]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1978884566]
@@ -37,10 +58,10 @@ texture = ExtResource("1_fwfnj")
 process_material = SubResource("ParticleProcessMaterial_qgne5")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=432624781]
-offset_left = 751.0
-offset_top = -19.0
-offset_right = 1320.0
-offset_bottom = 568.0
+offset_left = 711.0
+offset_top = -483.0
+offset_right = 2504.0
+offset_bottom = 1214.0
 texture = SubResource("NoiseTexture2D_fabh7")
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=1029487095]
@@ -56,3 +77,11 @@ position = Vector2(450.12122, 577.1212)
 scale = Vector2(10.757576, 10.757576)
 texture = ExtResource("4_5xxl2")
 script = ExtResource("5_86y76")
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=2080436637]
+material = SubResource("ShaderMaterial_fabh7")
+offset_left = 2105.0
+offset_top = -121.0
+offset_right = 3225.0
+offset_bottom = 1130.0
+texture = ExtResource("3_mde2k")
