@@ -72,21 +72,21 @@ shader_parameter/alpha_high = 0.3730000177175
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kry4s"]
 shader = ExtResource("9_emdnf")
-shader_parameter/speed = -1.08
+shader_parameter/speed = -0.235
 shader_parameter/hole_radius = 0.226000010735
 shader_parameter/hole_softness = 0.04
 shader_parameter/lensing = 0.6
 shader_parameter/rim_glow = 2.0
-shader_parameter/alpha_power = 2.16200009943512
-shader_parameter/alpha_boost = 4.0
+shader_parameter/alpha_power = 1.02700004552262
+shader_parameter/alpha_boost = 1.18000005605
 shader_parameter/brightness = 1.0
 shader_parameter/colour_alpha = 1.0
 shader_parameter/alpha_low = 0.0
 shader_parameter/alpha_high = 0.3730000177175
 shader_parameter/warp_strength = 1.33200006327
-shader_parameter/warp_swirl = 0.4470001097241507
-shader_parameter/warp_color = Vector3(4.88, 2.045, 1.38)
-shader_parameter/warp_intensity = 0.6750000320625
+shader_parameter/warp_swirl = 1.5
+shader_parameter/tunnel_color = Vector3(5.33, 2.525, 2.83)
+shader_parameter/tunnel_intensity = 0.510000024225
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mq276"]
 shader = ExtResource("10_5f0u2")
@@ -94,14 +94,14 @@ shader_parameter/resolution = Vector2(512, 512)
 shader_parameter/colorResolution = 100.0
 shader_parameter/distortionIntensity = 1.0
 shader_parameter/spiralDistortionIntensity = 1.0
-shader_parameter/holeSize = 0.17999999597664
+shader_parameter/holeSize = 0.0999999977648
 shader_parameter/holeColor = ExtResource("11_lpu1t")
 shader_parameter/image = ExtResource("12_lh74k")
 shader_parameter/rotations = 8.0
 shader_parameter/depth = 0.0
-shader_parameter/spiralIntensity = 6.000000238419201
+shader_parameter/spiralIntensity = 10.0
 shader_parameter/shrinkSpeed = 0.2
-shader_parameter/roationSpeed = 0.1
+shader_parameter/roationSpeed = -0.09999985247812049
 shader_parameter/haloColor = ExtResource("8_emdnf")
 
 [node name="Node" type="Node" unique_id=1256197848]
@@ -150,16 +150,16 @@ texture = ExtResource("8_emdnf")
 
 [node name="TextureRect5" type="TextureRect" parent="." unique_id=709670000]
 material = SubResource("ShaderMaterial_kry4s")
-offset_left = 7222.0
-offset_top = -2648.0
-offset_right = 12174.0
-offset_bottom = 2304.0
+offset_left = 7345.0
+offset_top = -2910.0
+offset_right = 12297.0
+offset_bottom = 2042.0
 texture = ExtResource("8_emdnf")
 
 [node name="TextureRect6" type="TextureRect" parent="." unique_id=1051560518]
 material = SubResource("ShaderMaterial_mq276")
-offset_left = 12377.0
-offset_top = -1515.0
-offset_right = 15510.0
-offset_bottom = 1618.0
+offset_left = 12774.0
+offset_top = -1518.0
+offset_right = 15907.0
+offset_bottom = 1615.0
 texture = ExtResource("11_lpu1t")

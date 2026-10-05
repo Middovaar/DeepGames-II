@@ -19,8 +19,8 @@ uniform float alpha_low : hint_range(0.0, 1.0) = 0.05;       // brightness at/be
 uniform float alpha_high : hint_range(0.0, 2.0) = 0.6;       // brightness at/above this is fully opaque
 uniform float warp_strength : hint_range(0.0, 4.0) = 1.5;    // how hard the background is pulled toward the hole
 uniform float warp_swirl : hint_range(-6.28, 6.28) = 1.5;    // twist of the background around the hole (radians at the horizon)
-uniform vec3 warp_color = vec3(3.0, 1.5, 1.0);
-uniform float warp_intensity : hint_range(0.0, 1.0) = 0.4;
+uniform vec3 tunnel_color = vec3(3.0, 1.5, 1.0);
+uniform float tunnel_intensity : hint_range(0.0, 1.0) = 0.4;
 
 // Whatever was drawn underneath this node (Godot 4)
 uniform sampler2D screen_tex : hint_screen_texture, repeat_disable, filter_linear;
@@ -65,11 +65,11 @@ vec3 tunnel(vec2 c, float t) {
 	for (int i = 0; i < STEPS; i++) {
 		vec3 b = p;
 		b.xy = rot(sin(b.xy), t * 1.5 + b.z * 3.0);
-		float s = 0.001 + abs(dot_noise(b * 12.0) / 12.0 - dot_noise(b)) * warp_intensity;
+		float s = 0.001 + abs(dot_noise(b * 12.0) / 12.0 - dot_noise(b)) * tunnel_intensity;
 		s = max(s, 2.0 - length(p.xy));
 		s += abs(p.y * 0.75 + sin(p.z + t * 0.1 + p.x * 1.5)) * 0.2;
 		p += d * s;
-		l += (1.0 + sin(float(i) + length(p.xy * 0.1) + warp_color)) / s;
+		l += (1.0 + sin(float(i) + length(p.xy * 0.1) + tunnel_color)) / s;
 	}
 	return aces(l * l / 6e2);
 }
