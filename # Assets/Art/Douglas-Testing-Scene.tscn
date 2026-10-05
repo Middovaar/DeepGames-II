@@ -6,6 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://poes2vcgo4yt" path="res://# Assets/Art/Shaders/quest_marker.png" id="4_5xxl2"]
 [ext_resource type="Script" uid="uid://boncntjmpivsf" path="res://# Assets/Art/quest_marker.gd" id="5_86y76"]
 [ext_resource type="Shader" uid="uid://dldagqo8ndo73" path="res://# Assets/Art/Shaders/space_noise.gdshader" id="6_86y76"]
+[ext_resource type="Shader" uid="uid://cgnp5w5goui8q" path="res://# Assets/Art/Shaders/black_hole.gdshader" id="7_j5lt8"]
+[ext_resource type="Texture2D" uid="uid://d3g2o0h60uk4i" path="res://# Assets/Art/Shaders/square.png" id="8_emdnf"]
+[ext_resource type="Shader" uid="uid://bwjiosoka2nvx" path="res://# Assets/Art/Shaders/black_hole_tunnel.gdshader" id="9_emdnf"]
+[ext_resource type="Shader" uid="uid://yr7dkjbbfn3p" path="res://# Assets/Art/Shaders/polar_black_hole.gdshader" id="10_5f0u2"]
+[ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Art/Shaders/black_square.png" id="11_lpu1t"]
+[ext_resource type="Texture2D" uid="uid://cihgl10dn1fo5" path="res://# Assets/Art/Shaders/warp.png" id="12_lh74k"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qgne5"]
 particle_flag_disable_z = true
@@ -50,6 +56,54 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_86y76")
 shader_parameter/scale = 0.09
 shader_parameter/min_scale = 0.01
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vekqr"]
+shader = ExtResource("7_j5lt8")
+shader_parameter/speed = 1.0
+shader_parameter/hole_radius = 0.18800000893
+shader_parameter/hole_softness = 0.04
+shader_parameter/lensing = 0.6
+shader_parameter/rim_glow = 2.0
+shader_parameter/alpha_power = 2.16200009943512
+shader_parameter/alpha_boost = 4.0
+shader_parameter/brightness = 1.0
+shader_parameter/colour_alpha = 1.0
+shader_parameter/alpha_low = 0.0
+shader_parameter/alpha_high = 0.3730000177175
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kry4s"]
+shader = ExtResource("9_emdnf")
+shader_parameter/speed = -1.08
+shader_parameter/hole_radius = 0.226000010735
+shader_parameter/hole_softness = 0.04
+shader_parameter/lensing = 0.6
+shader_parameter/rim_glow = 2.0
+shader_parameter/alpha_power = 2.16200009943512
+shader_parameter/alpha_boost = 4.0
+shader_parameter/brightness = 1.0
+shader_parameter/colour_alpha = 1.0
+shader_parameter/alpha_low = 0.0
+shader_parameter/alpha_high = 0.3730000177175
+shader_parameter/warp_strength = 1.33200006327
+shader_parameter/warp_swirl = 0.4470001097241507
+shader_parameter/warp_color = Vector3(4.88, 2.045, 1.38)
+shader_parameter/warp_intensity = 0.6750000320625
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mq276"]
+shader = ExtResource("10_5f0u2")
+shader_parameter/resolution = Vector2(512, 512)
+shader_parameter/colorResolution = 100.0
+shader_parameter/distortionIntensity = 1.0
+shader_parameter/spiralDistortionIntensity = 1.0
+shader_parameter/holeSize = 0.17999999597664
+shader_parameter/holeColor = ExtResource("11_lpu1t")
+shader_parameter/image = ExtResource("12_lh74k")
+shader_parameter/rotations = 8.0
+shader_parameter/depth = 0.0
+shader_parameter/spiralIntensity = 6.000000238419201
+shader_parameter/shrinkSpeed = 0.2
+shader_parameter/roationSpeed = 0.1
+shader_parameter/haloColor = ExtResource("8_emdnf")
+
 [node name="Node" type="Node" unique_id=1256197848]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1978884566]
@@ -58,10 +112,10 @@ texture = ExtResource("1_fwfnj")
 process_material = SubResource("ParticleProcessMaterial_qgne5")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=432624781]
-offset_left = 711.0
-offset_top = -483.0
-offset_right = 2504.0
-offset_bottom = 1214.0
+offset_left = 771.0
+offset_top = -432.0
+offset_right = 2564.0
+offset_bottom = 1265.0
 texture = SubResource("NoiseTexture2D_fabh7")
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=1029487095]
@@ -80,8 +134,32 @@ script = ExtResource("5_86y76")
 
 [node name="TextureRect3" type="TextureRect" parent="." unique_id=2080436637]
 material = SubResource("ShaderMaterial_fabh7")
-offset_left = -550.0
-offset_top = -360.0
-offset_right = 570.0
-offset_bottom = 891.0
+offset_left = -440.0
+offset_top = 144.0
+offset_right = 680.0
+offset_bottom = 1395.0
 texture = ExtResource("3_mde2k")
+
+[node name="TextureRect4" type="TextureRect" parent="." unique_id=890587439]
+material = SubResource("ShaderMaterial_vekqr")
+offset_left = 2941.0
+offset_top = -2829.0
+offset_right = 7508.0
+offset_bottom = 1738.0
+texture = ExtResource("8_emdnf")
+
+[node name="TextureRect5" type="TextureRect" parent="." unique_id=709670000]
+material = SubResource("ShaderMaterial_kry4s")
+offset_left = 7222.0
+offset_top = -2648.0
+offset_right = 12174.0
+offset_bottom = 2304.0
+texture = ExtResource("8_emdnf")
+
+[node name="TextureRect6" type="TextureRect" parent="." unique_id=1051560518]
+material = SubResource("ShaderMaterial_mq276")
+offset_left = 12377.0
+offset_top = -1515.0
+offset_right = 15510.0
+offset_bottom = 1618.0
+texture = ExtResource("11_lpu1t")
