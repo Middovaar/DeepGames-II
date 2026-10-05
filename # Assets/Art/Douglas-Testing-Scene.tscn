@@ -39,14 +39,14 @@ colors = PackedColorArray(1, 0.30980393, 1, 1, 0, 0.87058824, 0.87058824, 1, 0, 
 frequency = 0.0131
 fractal_type = 0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vekqr"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_86y76"]
 noise = SubResource("FastNoiseLite_emdnf")
 color_ramp = SubResource("Gradient_j5lt8")
 seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fabh7"]
 shader = ExtResource("6_86y76")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_vekqr")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_86y76")
 shader_parameter/scale = 0.09
 shader_parameter/min_scale = 0.01
 
@@ -80,8 +80,8 @@ script = ExtResource("5_86y76")
 
 [node name="TextureRect3" type="TextureRect" parent="." unique_id=2080436637]
 material = SubResource("ShaderMaterial_fabh7")
-offset_left = 2105.0
-offset_top = -121.0
-offset_right = 3225.0
-offset_bottom = 1130.0
+offset_left = -550.0
+offset_top = -360.0
+offset_right = 570.0
+offset_bottom = 891.0
 texture = ExtResource("3_mde2k")
