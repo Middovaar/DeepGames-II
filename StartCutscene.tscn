@@ -1,7 +1,25 @@
 [gd_scene format=3 uid="uid://d3njf2ivopwgg"]
 
 [ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="1_4k1er"]
+[ext_resource type="Script" uid="uid://colvdvuluwga4" path="res://Cutscene.gd" id="1_id41n"]
+[ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="2_damlb"]
+[ext_resource type="Texture2D" uid="uid://c07l4sa7ghdq0" path="res://# Assets/Art-Assets/Menu/Star.png" id="4_ii86m"]
 
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
+script = ExtResource("1_id41n")
+OccilationSpd = 0.4
 
 [node name="Background" parent="." unique_id=258432810 instance=ExtResource("1_4k1er")]
+
+[node name="Spaceship" parent="." unique_id=1636242691 instance=ExtResource("2_damlb")]
+z_index = 1
+position = Vector2(-200, 800)
+rotation = 1.5707964
+isActive = false
+
+[node name="Star" type="Sprite2D" parent="." unique_id=1724261918]
+position = Vector2(960, -190)
+scale = Vector2(0.34948096, 0.349481)
+texture = ExtResource("4_ii86m")
+
+[connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
