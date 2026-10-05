@@ -3,6 +3,10 @@ extends CharacterBody2D
 @export var speed = 400
 @export var isActive:bool = true
 
+func _ready():
+	if isActive:
+		$Spaceship/Camera2D.visible = false
+
 func get_input():
 	if isActive:
 		var input_direction = Input.get_vector("left", "right", "up", "down")

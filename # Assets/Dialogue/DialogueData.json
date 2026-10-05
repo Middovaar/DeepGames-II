@@ -8,4 +8,10 @@
 		"Items": 3,
 	},
 	
+	"PressSpace":{
+		"A": {"text":["[font_size=50][pulse freq=1.0 color=#ffffff40 ease=-0.9]Press Space"], "Speed": 1.0, "Location": 1}, 
+		 "Description": "A dummmy 'Press Space' prompt",
+		"Items": 1,
+	},
+	
 }

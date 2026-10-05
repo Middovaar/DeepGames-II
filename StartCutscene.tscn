@@ -2,20 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="1_4k1er"]
 [ext_resource type="Script" uid="uid://colvdvuluwga4" path="res://Cutscene.gd" id="1_id41n"]
-[ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="2_damlb"]
+[ext_resource type="PackedScene" uid="uid://brv7jqbf70wx0" path="res://# Assets/Dialogue/Textbox.res" id="2_qxi4i"]
+[ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Spaceship/Spaceship.png" id="3_tc7uj"]
 [ext_resource type="Texture2D" uid="uid://c07l4sa7ghdq0" path="res://# Assets/Art-Assets/Menu/Star.png" id="4_ii86m"]
+[ext_resource type="Script" uid="uid://d1r85pd17tsy1" path="res://spaceshipCutscene.gd" id="4_qxi4i"]
 
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
 script = ExtResource("1_id41n")
 OccilationSpd = 0.4
 
+[node name="Textbox" parent="." unique_id=1382413041 instance=ExtResource("2_qxi4i")]
+
 [node name="Background" parent="." unique_id=258432810 instance=ExtResource("1_4k1er")]
 
-[node name="Spaceship" parent="." unique_id=1636242691 instance=ExtResource("2_damlb")]
+[node name="Spaceship" type="Sprite2D" parent="." unique_id=1134113367]
 z_index = 1
-position = Vector2(-200, 800)
+position = Vector2(-198.00012, 803)
 rotation = 1.5707964
-isActive = false
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("3_tc7uj")
+script = ExtResource("4_qxi4i")
 
 [node name="Star" type="Sprite2D" parent="." unique_id=1724261918]
 position = Vector2(960, -190)
@@ -23,3 +29,5 @@ scale = Vector2(0.34948096, 0.349481)
 texture = ExtResource("4_ii86m")
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
+[connection signal="DialogueReq" from="." to="Textbox" method="DialogueRequest"]
+[connection signal="FinishedDialogue" from="Textbox" to="." method="_on_DialogueFinished"]

@@ -22,11 +22,11 @@ var ReadyText:Array #Word-based Array
 
 var HasSelectedSomething: bool
 var SelectedOption: bool
-var TextSkipped:int = 1
+var TextSkipped:int = 1 # 1 = normal speed, 0 = instant skip
 
 
 ## Outgoing Signals >>
-signal FinishedDialogueBlock(DialogueBlock:int)
+signal FinishedDialogue(DialogueUUID:String)
 signal DialogueOptions(Options:String)
 
 ## Internal Signals >>
@@ -39,9 +39,13 @@ func _ready():
 	assert(file.file_exists(DialoguePath), "Attempted to load Json, and json does not exist!") #Throw error when no JSON found
 	jsonObject.parse(parser)
 	Dialogue = jsonObject.data
-	$Display.text = "" #nulls text when loaded
+	%Text.text = "" #nulls text when loaded
 	HasSelectedSomething = false #makes sure they are nulled
 	SelectedOption = false #makes sure they are nulled
+
+
+func DialogueRequest(DialogueUUID: String):
+	ValidateTextKey(DialogueUUID)
 
 ## Validates the existence of the DialogueUUID and its starting block
 func ValidateTextKey(DialogueUUID: String):
@@ -63,6 +67,7 @@ func ValidateTextData(DialogueUUID: String, BlockKey: String):
 	## Where should the Display Window for the text go?
 	if block_data.has("Location"):
 		TextPosition = block_data["Location"]
+		$TextContainer.position.y = CurrentPosition(TextPosition)
 	
 	## If the Head block has no text, or is empty
 	if BlockKey == "A":
@@ -72,9 +77,9 @@ func ValidateTextData(DialogueUUID: String, BlockKey: String):
 		
 	var text_data = block_data["text"]
 	## If checked block doesn't have an array or isn't empty
-	if typeof(text_data) != TYPE_ARRAY or typeof(text_data) != TYPE_NIL:
-		push_error("Head String data in " + DialogueUUID + " isn't an Array/isn't empty!")
-		return
+	#if typeof(text_data) != TYPE_ARRAY or typeof(text_data) != TYPE_NIL:
+		#push_error("Head String data in " + DialogueUUID + " isn't an Array/isn't empty!")
+		#return
 	
 	
 	## Checks every entry in the array to make sure they are strings!
@@ -90,7 +95,8 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	var blockTextData = Dialogue[DialogueUUID][BlockKey]
 	
 	# Push the contents of BlockKey.text to ReadyText
-	ReadyText = blockTextData["text"]
+	print(blockTextData.text)
+	ReadyText = blockTextData.text
 	
 	# Count the number of TextBlocks within the given String Key (filtering out metadata strings)
 	var dialogue_sequence = Dialogue[DialogueUUID]
@@ -99,7 +105,7 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	# For every key where the key's length is 1, add 1 to the ammount of textblocks
 	for key in dialogue_sequence.keys():
 		if key.length() == 1: # Isolates keys like "A", "B", "C" from "Description", "Items"
-			block_count += 1
+			block_count += 1 # Counts what block you're on, used for debug purposes
 			
 	# Retrieve node-specific speed, if it exists.
 	var blockTextSpeed = 1.0
@@ -112,6 +118,7 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	TextIsAnimated = true
 	for string_part in ReadyText:
 		DisplayedText += string_part
+		%Text.text = DisplayedText
 		await get_tree().create_timer(AnimationSpeed * blockTextSpeed * TextSkipped).timeout
 		
 	TextIsAnimated = false
@@ -120,7 +127,7 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	# Wait for Spacebar, or whatever we choose to cause text progression
 	await advance_dialogue
 	# Flush out the current dialogue block data
-	DialogueClear()
+	ClearDialogue()
 	
 	## Calculate the next block key (A -> B -> C)
 	var current_char_code = BlockKey.unicode_at(0)
@@ -129,14 +136,29 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	if dialogue_sequence.has(next_block_key):
 		ValidateTextData(DialogueUUID, next_block_key)
 	else:
-		queue_free()
+		ClearDialogue()
+		emit_signal("FinishedDialogue", DialogueUUID)
 
-## Increments Dialogue Block one step forward ATTACH THIS TO A SIGNAL
+## Increments Dialogue Block one step forward ATTACH THIS TO A SIGNAL TRIGGER
 func TextIncrement():
 	emit_signal("advance_dialogue")
 
 ## Resets displayed Dialogue to text.EMPTYSTRING
-func DialogueClear(): 
-	%TextBox.text = ""
+func ClearDialogue(): 
+	%Text.text = ""
 	DisplayedText = ""
 	ReadyText = []
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_accept") and TextIsAnimated != true:
+		TextIncrement()
+
+func CurrentPosition(PositionID:int) -> float:
+	var RealPosition:float
+	match PositionID:
+		1:
+			RealPosition = 540.0
+		_:
+			RealPosition = 0.0
+			
+	return RealPosition

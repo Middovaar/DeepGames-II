@@ -3,6 +3,10 @@ extends Node2D
 ## >> Internal Signals
 signal AnimationStageChange(Stage:int)
 
+## >> External Signals
+signal DialogueReq(DialogueUUID:String)
+signal GoToGame()
+
 @export var ScreenMiddle:float = 990.0
 @export var ScreenEnd:float = 3080.0
 @export var AnimationStage:int = 0
@@ -20,6 +24,9 @@ signal AnimationStageChange(Stage:int)
 
 var SinClock:float = 0.0
 var CountTimer:float = 0.0
+var single:bool = true
+
+var DialogueIntroFlag:bool = false
 
 func _ready():
 	$Background.ControllableStars = false
@@ -41,13 +48,13 @@ func _process(delta):
 			
 			$Spaceship.position.x += (sin(SinClock) * OccilationStr)
 		2:
-			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.005)
+			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.008)
 			if $Spaceship.position.x >= 2300:
 				AnimationStage = 3
 		3:
-			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.005)
+			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.008)
 			if $Background.SpaceSpeed.y <= -0.95:
-				$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 1.0, 0.005)
+				$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 1.0, 0.008)
 				$Background.SpaceSpeed.y -= 0.002 * delta
 			else:
 				AnimationStage = 4
@@ -56,34 +63,46 @@ func _process(delta):
 			const Threshold:int = 500
 			if CountTimer < Threshold:
 				if CountTimer < Threshold*0.4:
-					$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.3, 0.008)
+					$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.3, 0.01)
 				else:
-					$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.008)
-				$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, -1.0, 0.005)
+					$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.01)
+				$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, -1.0, 0.008)
 				CountTimer += 101 * delta
 			else:
 				AnimationStage = 5
 		5:
-			print($Star.position.y)
-			if $Background.SpaceSpeed.y > -0.1:
-				$Star.position.y = lerpf($Star.position.y, 1080*0.45, 0.007)
-			$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.002)
-			$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, 0.0, 0.002)
-			
-			if $Star.position.y > 1080 * 0.4:
+			if $Star.position.y < 1080 * 0.449:
+				$Star.position.y = lerpf($Star.position.y, 1080*0.45, 0.012)
+				$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.008)
+				$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, 0.0, 0.008)
+			else:
+				emit_signal("AnimationStageChange", 5)
+				$Background.SpaceSpeed = Vector2.ZERO
 				$Star.position.y = 1080 * 0.45
 
 func _input(event):
 	## Replace This with a signal from the dialogue docs.
-	
-	if Input.is_action_just_pressed("ui_accept") and AnimationStage == 1:
-		AnimationStage = 2
-
+	if Input.is_action_just_pressed("ui_accept"):
+		if AnimationStage == 1 and DialogueIntroFlag:
+			AnimationStage = 2
+		if AnimationStage == 5:
+			emit_signal("GoToGame")
 
 func _on_animation_stage_change(Stage):
 	match Stage:
 		1:
-			## Do Dialogue Stuff.
-			pass
+			emit_signal("DialogueReq", "Intro") #Loads the Dialogue "Intro" in Dialogue.json
+		5:
+			if single:
+				emit_signal("DialogueReq", "PressSpace") # Shows the Press Space Message
+				single = false
+			else:
+				pass
 		_:
-			breakpoint
+			pass
+
+
+func _on_DialogueFinished(DialogueUUID):
+	match DialogueUUID:
+		"Intro":
+			DialogueIntroFlag = true
