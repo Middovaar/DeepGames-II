@@ -2,12 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bwewl7op7ct8c" path="res://# Scripts/game.gd" id="1_7jktm"]
 [ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://587vjakrw3do" path="res://# Scripts/stage_manager.gd" id="2_e2o6t"]
-[ext_resource type="Script" uid="uid://duq1r2rktyy31" path="res://# Scripts/stage_2_zone.gd" id="3_feb5d"]
 [ext_resource type="Texture2D" uid="uid://t8r1t85mubcv" path="res://# Assets/Art-Assets/Main/BlackHole.png" id="4_fc0e3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
-size = Vector2(400, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jktm"]
 radius = 145.0
@@ -15,67 +10,19 @@ radius = 145.0
 [node name="main" type="Node2D" unique_id=812561369]
 script = ExtResource("1_7jktm")
 
-[node name="Spaceship" parent="." unique_id=315184584 groups=["player"] instance=ExtResource("1_80nbo")]
+[node name="Spaceship" parent="." unique_id=315184584 node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(512, 304)
-
-[node name="StageManager" type="Node" parent="." unique_id=308570513]
-script = ExtResource("2_e2o6t")
-
-[node name="Stage1Zone" type="Area2D" parent="StageManager" unique_id=1298627277]
-position = Vector2(508, -122)
-script = ExtResource("3_feb5d")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage1Zone" unique_id=1921677395]
-shape = SubResource("RectangleShape2D_e2o6t")
-
-[node name="Stage2Zone" type="Area2D" parent="StageManager" unique_id=1020721672]
-position = Vector2(523, -875)
-script = ExtResource("3_feb5d")
-stage_number = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage2Zone" unique_id=500893371]
-shape = SubResource("RectangleShape2D_e2o6t")
-
-[node name="Stage3Zone" type="Area2D" parent="StageManager" unique_id=1040375886]
-position = Vector2(514, -1541)
-script = ExtResource("3_feb5d")
-stage_number = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage3Zone" unique_id=2034630840]
-shape = SubResource("RectangleShape2D_e2o6t")
-
-[node name="Stage4Zone" type="Area2D" parent="StageManager" unique_id=1799390076]
-position = Vector2(504, -2583)
-script = ExtResource("3_feb5d")
-stage_number = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage4Zone" unique_id=503782743]
-shape = SubResource("RectangleShape2D_e2o6t")
-
-[node name="Stage5Zone" type="Area2D" parent="StageManager" unique_id=344683008]
-position = Vector2(456, -3802)
-script = ExtResource("3_feb5d")
-stage_number = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StageManager/Stage5Zone" unique_id=1044119280]
-shape = SubResource("RectangleShape2D_e2o6t")
+gravity_source = NodePath("../Blackhole")
+gravity_radius = 3000.0
+gravity_strength = 6000.0
 
 [node name="Blackhole" type="Area2D" parent="." unique_id=1863874516]
-position = Vector2(-1193, -5116)
+position = Vector2(0, -1000)
 
 [node name="Sprite2D" type="Sprite2D" parent="Blackhole" unique_id=1067477491]
+scale = Vector2(2, 2)
 texture = ExtResource("4_fc0e3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blackhole" unique_id=360167518]
 position = Vector2(11, -12)
 shape = SubResource("CircleShape2D_7jktm")
-
-[node name="EndingOverlay" type="CanvasLayer" parent="." unique_id=1812485582]
-
-[node name="WhiteScreen" type="ColorRect" parent="EndingOverlay" unique_id=1387686597]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
