@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3g2o0h60uk4i"
-path="res://.godot/imported/square.png-38d290202420d60d2167ff98b6c75247.ctex"
+uid="uid://poes2vcgo4yt"
+path="res://.godot/imported/quest_marker.png-03a500a2633bba5b610bf3c56360a6f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://# Assets/Art/Shaders/square.png"
-dest_files=["res://.godot/imported/square.png-38d290202420d60d2167ff98b6c75247.ctex"]
+source_file="res://# Assets/Douglas Art/Shaders/quest_marker.png"
+dest_files=["res://.godot/imported/quest_marker.png-03a500a2633bba5b610bf3c56360a6f6.ctex"]
 
 [params]
 

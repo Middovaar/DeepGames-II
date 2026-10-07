@@ -31,7 +31,9 @@ project/assembly_name="DeepGamesII"
 [file_customization]
 
 folder_colors={
-"res://# Assets/Art/": "orange"
+"res://# Assets/Art-Assets/": "green",
+"res://# Assets/Douglas Art/": "orange",
+"res://# Assets/MM/": "blue"
 }
 
 [input]

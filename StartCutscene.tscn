@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Spaceship/Spaceship.png" id="3_tc7uj"]
 [ext_resource type="Texture2D" uid="uid://c07l4sa7ghdq0" path="res://# Assets/Art-Assets/Menu/Star.png" id="4_ii86m"]
 [ext_resource type="Script" uid="uid://d1r85pd17tsy1" path="res://spaceshipCutscene.gd" id="4_qxi4i"]
+[ext_resource type="Texture2D" uid="uid://crmncmmiuxul8" path="res://# Assets/Art-Assets/Main/BlackHoleBlackened.png" id="7_2sn37"]
 
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
 script = ExtResource("1_id41n")
@@ -27,6 +28,11 @@ script = ExtResource("4_qxi4i")
 position = Vector2(960, -190)
 scale = Vector2(0.34948096, 0.349481)
 texture = ExtResource("4_ii86m")
+
+[node name="BlackHole" type="Sprite2D" parent="Star" unique_id=1817415259]
+z_index = 2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_2sn37")
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
 [connection signal="DialogueReq" from="." to="Textbox" method="DialogueRequest"]
