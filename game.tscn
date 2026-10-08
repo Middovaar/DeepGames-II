@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bwewl7op7ct8c" path="res://# Scripts/game.gd" id="1_7jktm"]
 [ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
-[ext_resource type="Shader" uid="uid://ddkn7wy0dhbsd" path="res://# Assets/Art/Shaders/scrolling_starry_background.gdshader" id="2_eow3j"]
-[ext_resource type="Texture2D" uid="uid://bcchdtbietyaw" path="res://# Assets/Art/Shaders/star_seven.png" id="3_j5wjh"]
+[ext_resource type="Shader" uid="uid://ddkn7wy0dhbsd" path="res://# Assets/Douglas Art/Shaders/scrolling_starry_background.gdshader" id="2_eow3j"]
+[ext_resource type="Texture2D" uid="uid://bcchdtbietyaw" path="res://# Assets/Douglas Art/Shaders/star_seven.png" id="3_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://t8r1t85mubcv" path="res://# Assets/Art-Assets/Main/BlackHole.png" id="4_fc0e3"]
-[ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Art/Shaders/radial_lines.gdshader" id="5_vef74"]
-[ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Art/Shaders/black_square.png" id="6_hve3p"]
+[ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="5_vef74"]
+[ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Douglas Art/Shaders/black_square.png" id="6_hve3p"]
+[ext_resource type="Script" uid="uid://ch1dcnta85x5r" path="res://r-to-restart.gd" id="8_j5wjh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfdv2"]
 shader = ExtResource("2_eow3j")
@@ -69,3 +70,6 @@ position = Vector2(4923, 1360)
 gravity_source = NodePath("../Blackhole")
 gravity_radius = 12000.0
 gravity_strength = 16000.0
+
+[node name="Node" type="Node" parent="." unique_id=1161980285]
+script = ExtResource("8_j5wjh")
