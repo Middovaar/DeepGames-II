@@ -1,8 +1,9 @@
 {
 	"Intro":{
-		"A": {"text":["te", "st", " ", "te", "st"], "Speed": 1.0, "Location": 0}, 
-		"B": {"text":["te", "st", " ", "te", "st"], "Speed": 1.0},
-		"C": {"text":["te", "st", " ", "te", "st"], "Speed": 1.0},
+		"A": {"text":["It ", "has ", "been ", "8 ", "months", ".", ".", "."], "Speed": 1.2, "Location": 0}, 
+		"B": {"text":["Food ", "is ", "run", "ning ", "out", "."], "Speed": 1.0},
+		"C": {"text":["Fuel ", "tank ", "is ", "al", "most ", "empty", "."], "Speed": 1.0},
+		"D": {"text":["I ", "am ", "af", "raid", "this ", "might ", "be ", "the ", "end", "."], "Speed": 1.0},
 		
 		"Description": "Triggered after game start",
 		"Items": 3,
