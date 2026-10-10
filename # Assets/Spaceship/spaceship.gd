@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
-@export var max_speed: float = 400
-@export var acceleration: float = 10
-@export var friction: float = 5
+const MAXSPEED: Vector2 = Vector2(4000,4000)
+@export var speed: float = 30
 @export var isActive:bool = true
 @export var gravity_source: Node2D
 @export var gravity_radius: float = 1000.0
@@ -17,11 +16,12 @@ func get_input():
 
 	
 func _physics_process(delta: float) -> void:
-
 	if isActive:
 		var direction = get_input()
-		var velocity_weight: float = delta * (acceleration if direction else friction)
-		velocity = lerp(velocity, direction * max_speed, velocity_weight)
+		if direction:
+			velocity += direction * speed
+			velocity = velocity.clamp(-MAXSPEED, MAXSPEED)
+			print_debug(velocity)
 		if gravity_source != null:
 			var offset: Vector2 = gravity_source.global_position - global_position
 			var distance: float = offset.length()
