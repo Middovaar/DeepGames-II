@@ -1,7 +1,12 @@
 extends CharacterBody2D
 
 const MAXSPEED: Vector2 = Vector2(500,500)
-@export var speed: float = 30
+var speed: float = 30
+var fuel: float = 100.0
+@export var player_normal_speed: float = 30.0;
+@export var player_boosting_speed: float = 60.0;
+@onready var fuel_bar: ProgressBar = $FuelBar
+
 @export var isActive:bool = true
 @export var gravity_source: Node2D
 @onready var sprite: Sprite2D = $Spaceship
@@ -16,12 +21,26 @@ const MAXSPEED: Vector2 = Vector2(500,500)
 @export var far_ramp_time : float = 4.0    # max time to reach full boost
 @export var far_boost : float = 1500.0     # extra pull at full boost
 var far_time: float = 0.0
+var last_direction
 
 
 func _ready():
 	if isActive:
 		$Camera2D.visible = false
 		velocity.clamp(-MAXSPEED, MAXSPEED)
+		last_direction = Vector2.RIGHT
+
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("Fuel"):
+		fuel -= 10 * delta
+		if fuel < 0:
+			fuel = 0
+		fuel_bar.value = fuel
+		if fuel != 0:
+			speed = player_boosting_speed
+		else:
+			speed = player_normal_speed
+		#depending on how player speed is set up can change how this is handled
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -34,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			velocity += direction * speed
 
-			var last_direction = direction
+			last_direction = direction
 			sprite.rotation = lerp_angle(sprite.rotation, last_direction.angle() + deg_to_rad(90), 0.1)
 			
 			velocity = velocity.clamp(-MAXSPEED, MAXSPEED)
