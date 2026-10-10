@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			velocity += direction * speed
 			velocity = velocity.clamp(-MAXSPEED, MAXSPEED)
-			print_debug(velocity)
 		if gravity_source != null:
 			var offset: Vector2 = gravity_source.global_position - global_position
 			var distance: float = offset.length()
