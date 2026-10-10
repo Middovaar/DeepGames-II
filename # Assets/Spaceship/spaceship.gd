@@ -40,7 +40,9 @@ func _process(delta: float) -> void:
 			speed = player_boosting_speed
 		else:
 			speed = player_normal_speed
-		#depending on how player speed is set up can change how this is handled
+	if Input.is_action_just_released("Fuel"):
+		speed = player_normal_speed
+		#mby need to add particles to show fuel is being used up (or some other visual effect)
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
