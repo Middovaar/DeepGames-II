@@ -67,9 +67,8 @@ texture = ExtResource("6_hve3p")
 
 [node name="Spaceship" parent="." unique_id=315184584 node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
 position = Vector2(4923, 1360)
+speed = 15.0
 gravity_source = NodePath("../Blackhole")
-gravity_radius = 12000.0
-gravity_strength = 16000.0
 
 [node name="Node" type="Node" parent="." unique_id=1161980285]
 script = ExtResource("8_j5wjh")
