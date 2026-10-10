@@ -20,11 +20,4 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta):
 	if ControllableStars:
-		if Input.is_action_pressed("up"):
-			SpaceSpeed.y = lerpf(SpaceSpeed.y, -1.0, 0.1)
-		if Input.is_action_pressed("down"):
-			SpaceSpeed.y = lerpf(SpaceSpeed.y, 1.0, 0.1)
-		if Input.is_action_pressed("right"):
-			SpaceSpeed.x = lerpf(SpaceSpeed.x, -1.0, 0.1)
-		if Input.is_action_pressed("left"):
-			SpaceSpeed.x = lerpf(SpaceSpeed.x, 1.0, 0.1)
+		SpaceSpeed = Vector2.ZERO

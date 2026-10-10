@@ -2,17 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bwewl7op7ct8c" path="res://# Scripts/game.gd" id="1_7jktm"]
 [ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
-[ext_resource type="Shader" uid="uid://ddkn7wy0dhbsd" path="res://# Assets/Douglas Art/Shaders/scrolling_starry_background.gdshader" id="2_eow3j"]
-[ext_resource type="Texture2D" uid="uid://bcchdtbietyaw" path="res://# Assets/Douglas Art/Shaders/star_seven.png" id="3_j5wjh"]
+[ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="3_eow3j"]
 [ext_resource type="Texture2D" uid="uid://t8r1t85mubcv" path="res://# Assets/Art-Assets/Main/BlackHole.png" id="4_fc0e3"]
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Douglas Art/Shaders/black_square.png" id="6_hve3p"]
 [ext_resource type="Script" uid="uid://ch1dcnta85x5r" path="res://r-to-restart.gd" id="8_j5wjh"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mfdv2"]
-shader = ExtResource("2_eow3j")
-shader_parameter/stars_speed = Vector2(0, 0)
-shader_parameter/stars_density = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jktm"]
 radius = 145.0
@@ -30,21 +24,24 @@ shader_parameter/alpha = 0.4950000235125
 [node name="main" type="Node2D" unique_id=812561369]
 script = ExtResource("1_7jktm")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=528012270]
-offset_left = -7874.0
-offset_top = -8361.0
-offset_right = 8517.0
-offset_bottom = 7000.0
-color = Color(0, 0, 0, 1)
+[node name="Background" parent="." unique_id=258432810 instance=ExtResource("3_eow3j")]
 
-[node name="TextureRect2" type="TextureRect" parent="ColorRect" unique_id=1462555594]
-material = SubResource("ShaderMaterial_mfdv2")
-layout_mode = 0
-offset_left = 462.0
-offset_top = 240.0
-offset_right = 15967.0
-offset_bottom = 14785.0
-texture = ExtResource("3_j5wjh")
+[node name="Spaceship" parent="." unique_id=315184584 node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
+unique_name_in_owner = true
+z_index = 3
+position = Vector2(4923, 1360)
+gravity_source = NodePath("../Blackhole")
+gravity_radius = 12000.0
+gravity_strength = 16000.0
+
+[node name="ColorRect" type="ColorRect" parent="Spaceship" unique_id=528012270]
+z_as_relative = false
+offset_left = -12797.0
+offset_top = -9721.0
+offset_right = 3594.0
+offset_bottom = 5640.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="Blackhole" type="Area2D" parent="." unique_id=1863874516]
 position = Vector2(0, -1000)
@@ -57,19 +54,13 @@ texture = ExtResource("4_fc0e3")
 position = Vector2(11, -12)
 shape = SubResource("CircleShape2D_7jktm")
 
-[node name="TextureRect7" type="TextureRect" parent="Blackhole" unique_id=1527938231]
+[node name="GravityCircles" type="TextureRect" parent="Blackhole" unique_id=1527938231]
 material = SubResource("ShaderMaterial_iotsf")
 offset_left = -6566.0
 offset_top = -6585.0
 offset_right = 6601.0
 offset_bottom = 6582.0
 texture = ExtResource("6_hve3p")
-
-[node name="Spaceship" parent="." unique_id=315184584 node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
-position = Vector2(4923, 1360)
-gravity_source = NodePath("../Blackhole")
-gravity_radius = 12000.0
-gravity_strength = 16000.0
 
 [node name="Node" type="Node" parent="." unique_id=1161980285]
 script = ExtResource("8_j5wjh")

@@ -31,7 +31,7 @@ void fragment() {
             sum += h_sum / 9.0;
         }
 
-    	COLOR = texture(t0, SCREEN_UV) + ((sum / 9.0) * glow_intensity);
+    COLOR = texture(t0, SCREEN_UV) + ((sum / 9.0) * glow_intensity);
 	COLOR = mix(COLOR, vec4(glow_colour, 1.0), color_intensity);
     }
 	

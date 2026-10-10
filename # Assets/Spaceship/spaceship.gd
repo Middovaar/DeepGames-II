@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
-@export var max_speed: float = 400
+@export var max_speed: float = 800
 @export var acceleration: float = 10
-@export var friction: float = 5
+@export var friction: float = 0
 @export var isActive:bool = true
 @export var gravity_source: Node2D
 @export var gravity_radius: float = 1000.0
-@export var gravity_strength: float = 5000.0
+@export var gravity_strength: float = 5.0
 func _ready():
 	if isActive:
 		$Spaceship/Camera2D.visible = false
