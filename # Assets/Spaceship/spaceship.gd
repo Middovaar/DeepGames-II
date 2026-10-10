@@ -13,7 +13,7 @@ const MAXSPEED: Vector2 = Vector2(500,500)
 @export var momentum_decay : float = 1.0 # how fast momentum decays
 
 @export var far_distance : float = 5000.0   # beyond this, the boost starts building
-@export var far_ramp_time : float = 4.0    # seconds to reach full boost
+@export var far_ramp_time : float = 4.0    # max time to reach full boost
 @export var far_boost : float = 1500.0     # extra pull at full boost
 var far_time: float = 0.0
 
@@ -48,6 +48,7 @@ func _physics_process(delta: float) -> void:
 
 
 			# adds extra pull if you are trying to escape, mby can be changed for something better
+			# can probably be used for sheding mechanic 
 			if distance > far_distance:
 				far_time = min(far_time + delta, far_ramp_time)
 			else:
