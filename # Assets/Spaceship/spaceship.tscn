@@ -1,13 +1,23 @@
 [gd_scene format=3 uid="uid://dbx8ak5cjwvwq"]
 
 [ext_resource type="Script" uid="uid://cf22fsw8e3dbn" path="res://# Assets/Spaceship/spaceship.gd" id="1_llyuj"]
+[ext_resource type="PackedScene" uid="uid://8kcwsx854xe0" path="res://# Assets/Spaceship/left_wing.tscn" id="2_greto"]
 [ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Spaceship/Spaceship.png" id="2_pjt0p"]
+[ext_resource type="PackedScene" uid="uid://d3d41a2ljkp3h" path="res://# Assets/Spaceship/right_wing.tscn" id="3_5xa64"]
+[ext_resource type="Texture2D" uid="uid://gmxltlmp74mg" path="res://# Assets/Spaceship/Spaceship_shedded1.png" id="3_a5trm"]
+[ext_resource type="Texture2D" uid="uid://bwmfwc13lpq5r" path="res://# Assets/Spaceship/Spaceship_shedded2.png" id="4_33hv1"]
+[ext_resource type="Texture2D" uid="uid://5wr7l8utjf7j" path="res://# Assets/Spaceship/Spaceship_shedded3.png" id="5_ahabe"]
+[ext_resource type="Texture2D" uid="uid://dpe7xehgvd1p6" path="res://# Assets/Spaceship/Spaceship_shedded4.png" id="6_aso6q"]
+[ext_resource type="Texture2D" uid="uid://d2xket54j2mkj" path="res://# Assets/Spaceship/Spaceship_shedded5.png" id="7_gvjvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dth4k"]
 size = Vector2(20, 48)
 
 [node name="Spaceship" type="CharacterBody2D" unique_id=1636242691]
 script = ExtResource("1_llyuj")
+countdown_textures = Array[Texture2D]([ExtResource("2_pjt0p"), ExtResource("3_a5trm"), ExtResource("4_33hv1"), ExtResource("5_ahabe"), ExtResource("6_aso6q"), ExtResource("7_gvjvs")])
+left_wing = ExtResource("2_greto")
+right_wing = ExtResource("3_5xa64")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1465722490]
 shape = SubResource("RectangleShape2D_dth4k")

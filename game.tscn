@@ -7,7 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://t8r1t85mubcv" path="res://# Assets/Art-Assets/Main/BlackHole.png" id="4_fc0e3"]
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Douglas Art/Shaders/black_square.png" id="6_hve3p"]
+[ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Spaceship/Spaceship.png" id="8_215e1"]
 [ext_resource type="Script" uid="uid://ch1dcnta85x5r" path="res://r-to-restart.gd" id="8_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://gmxltlmp74mg" path="res://# Assets/Spaceship/Spaceship_shedded1.png" id="8_lc2xo"]
+[ext_resource type="Texture2D" uid="uid://bwmfwc13lpq5r" path="res://# Assets/Spaceship/Spaceship_shedded2.png" id="9_215e1"]
+[ext_resource type="Texture2D" uid="uid://5wr7l8utjf7j" path="res://# Assets/Spaceship/Spaceship_shedded3.png" id="10_7sc4i"]
+[ext_resource type="Texture2D" uid="uid://dpe7xehgvd1p6" path="res://# Assets/Spaceship/Spaceship_shedded4.png" id="11_80cx4"]
+[ext_resource type="Texture2D" uid="uid://d2xket54j2mkj" path="res://# Assets/Spaceship/Spaceship_shedded5.png" id="12_e8heu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfdv2"]
 shader = ExtResource("2_eow3j")
@@ -15,7 +21,7 @@ shader_parameter/stars_speed = Vector2(0, 0)
 shader_parameter/stars_density = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jktm"]
-radius = 145.0
+radius = 374.53436
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
 shader = ExtResource("5_vef74")
@@ -66,10 +72,11 @@ offset_bottom = 6582.0
 texture = ExtResource("6_hve3p")
 
 [node name="Spaceship" parent="." unique_id=315184584 node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
-position = Vector2(4923, 1360)
+position = Vector2(2949, 1058)
 player_normal_speed = 15.0
 player_boosting_speed = 40.0
 gravity_source = NodePath("../Blackhole")
+countdown_textures = Array[Texture2D]([ExtResource("8_215e1"), ExtResource("8_lc2xo"), ExtResource("9_215e1"), ExtResource("10_7sc4i"), ExtResource("11_80cx4"), ExtResource("12_e8heu")])
 
 [node name="Node" type="Node" parent="." unique_id=1161980285]
 script = ExtResource("8_j5wjh")
