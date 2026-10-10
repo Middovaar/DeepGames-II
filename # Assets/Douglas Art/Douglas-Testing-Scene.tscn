@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cihgl10dn1fo5" path="res://# Assets/Douglas Art/Shaders/warp.png" id="12_lh74k"]
 [ext_resource type="Texture2D" uid="uid://t8r1t85mubcv" path="res://# Assets/Art-Assets/Main/BlackHole.png" id="13_lh74k"]
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="14_mq276"]
-[ext_resource type="Script" uid="uid://djtvh8cm8w0ru" path="res://# Assets/Douglas Art/fuel_bar.gd" id="15_xd78n"]
+[ext_resource type="PackedScene" uid="uid://pjhdql0lubee" path="res://# Assets/Douglas Art/fuel_bar.tscn" id="15_xd78n"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qgne5"]
 particle_flag_disable_z = true
@@ -189,10 +189,8 @@ offset_right = 19075.0
 offset_bottom = 1548.0
 texture = ExtResource("11_lpu1t")
 
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=8662431]
-offset_left = 95.0
-offset_top = 60.0
-offset_right = 484.0
-offset_bottom = 87.0
-value = 100.0
-script = ExtResource("15_xd78n")
+[node name="ProgressBar2" parent="." unique_id=1072660555 instance=ExtResource("15_xd78n")]
+offset_left = 148.0
+offset_top = 53.0
+offset_right = 511.0
+offset_bottom = 80.0
