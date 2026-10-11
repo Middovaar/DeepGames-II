@@ -37,6 +37,7 @@ func _ready():
 	var parser = file.get_as_text() #extract data as String
 	var jsonObject = JSON.new() #create JSON object
 	assert(file.file_exists(DialoguePath), "Attempted to load Json, and json does not exist!") #Throw error when no JSON found
+	ShowDialgBox(false)
 	jsonObject.parse(parser)
 	Dialogue = jsonObject.data
 	%Text.text = "" #nulls text when loaded
@@ -46,6 +47,7 @@ func _ready():
 
 func DialogueRequest(DialogueUUID: String):
 	ValidateTextKey(DialogueUUID)
+	ShowDialgBox(true)
 
 ## Validates the existence of the DialogueUUID and its starting block
 func ValidateTextKey(DialogueUUID: String):
@@ -137,6 +139,7 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 		ValidateTextData(DialogueUUID, next_block_key)
 	else:
 		ClearDialogue()
+		ShowDialgBox(false)
 		emit_signal("FinishedDialogue", DialogueUUID)
 
 ## Increments Dialogue Block one step forward ATTACH THIS TO A SIGNAL TRIGGER
@@ -162,3 +165,8 @@ func CurrentPosition(PositionID:int) -> float:
 			RealPosition = 0.0
 			
 	return RealPosition
+
+func ShowDialgBox(donotHide) -> void:
+	match donotHide:
+		true: %DialogueBox.modulate = Color.WHITE
+		false: %DialogueBox.modulate = Color.TRANSPARENT
