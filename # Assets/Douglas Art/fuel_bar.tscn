@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://pjhdql0lubee"]
+
+[ext_resource type="Script" uid="uid://djtvh8cm8w0ru" path="res://# Assets/Douglas Art/fuel_bar.gd" id="1_wllmf"]
+
+[node name="FuelBar" type="ProgressBar" unique_id=1072660555]
+offset_right = 363.0
+offset_bottom = 27.0
+value = 100.0
+script = ExtResource("1_wllmf")

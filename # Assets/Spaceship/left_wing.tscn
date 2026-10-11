@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://8kcwsx854xe0"]
+
+[ext_resource type="Texture2D" uid="uid://cyeoclutfpys5" path="res://# Assets/Spaceship/wing1.png" id="1_0mexo"]
+[ext_resource type="Script" uid="uid://cu580vt23cdh0" path="res://# Assets/Douglas Art/wing.gd" id="2_kbp7d"]
+
+[node name="Sprite2D" type="Sprite2D" unique_id=1145036414]
+texture = ExtResource("1_0mexo")
+script = ExtResource("2_kbp7d")
