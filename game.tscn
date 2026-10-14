@@ -47,6 +47,8 @@ zoom = Vector2(0.125, 0.125)
 unique_name_in_owner = true
 z_index = 3
 position = Vector2(4923, 1360)
+player_normal_speed = 15.0
+player_boosting_speed = 35.0
 gravity_source = NodePath("../Blackhole")
 
 [node name="Blackhole" type="Area2D" parent="." unique_id=889403005]

@@ -6,7 +6,7 @@ var speed: float = 30
 var fuel: float = 100.0
 @export var player_normal_speed: float = 30.0;
 @export var player_boosting_speed: float = 60.0;
-@onready var fuel_bar: ProgressBar = $FuelBar
+@export var fuel_bar: ProgressBar 
 
 @export var isActive:bool = true
 @export var gravity_source: Node2D
@@ -171,6 +171,7 @@ func _physics_process(delta: float) -> void:
 
 			if orbit_state == OrbitState.STABLE and direction == Vector2.ZERO and not is_boosting:
 				stable_orbit_time += delta
+				print("Stable orbit time: ", stable_orbit_time)
 			else:
 				stable_orbit_time = 0.0
 
@@ -184,8 +185,8 @@ func _physics_process(delta: float) -> void:
 			else:
 				orbit_camera.zoom = Vector2(0.08, 0.08)
 			orbit_camera.global_position = gravity_source.global_position
-			return
-		stable_orbit_time = 0.0
+			#return
+		#stable_orbit_time = 0.0
 		if direction:
 			velocity += direction * speed
 

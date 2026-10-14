@@ -13,11 +13,28 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dth4k"]
 size = Vector2(20, 48)
 
-[node name="Spaceship" type="CharacterBody2D" unique_id=1949578817]
+[node name="Spaceship" type="CharacterBody2D" unique_id=1949578817 node_paths=PackedStringArray("fuel_bar")]
 script = ExtResource("1_llyuj")
+fuel_bar = NodePath("FuelBar")
 countdown_textures = Array[Texture2D]([ExtResource("2_pjt0p"), ExtResource("3_a5trm"), ExtResource("4_33hv1"), ExtResource("5_ahabe"), ExtResource("6_aso6q"), ExtResource("7_gvjvs")])
 left_wing = ExtResource("2_greto")
 right_wing = ExtResource("3_5xa64")
+
+[node name="FuelBar" type="ProgressBar" parent="." unique_id=392814908]
+offset_left = -185.0
+offset_top = 253.0
+offset_right = 184.0
+offset_bottom = 280.0
+value = 100.0
+
+[node name="Label" type="Label" parent="FuelBar" unique_id=2055261697]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -54.0
+offset_right = 46.0
+offset_bottom = -31.0
+scale = Vector2(1.945, 1.945)
+text = "Fuel:"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2070525675]
 shape = SubResource("RectangleShape2D_dth4k")
@@ -25,13 +42,6 @@ shape = SubResource("RectangleShape2D_dth4k")
 [node name="Spaceship" type="Sprite2D" parent="." unique_id=1118381606]
 scale = Vector2(0.189923, 0.189923)
 texture = ExtResource("2_pjt0p")
-
-[node name="FuelBar" type="ProgressBar" parent="." unique_id=1570587055]
-offset_left = -901.0
-offset_top = -481.0
-offset_right = -532.0
-offset_bottom = -454.0
-value = 100.0
 
 [node name="Timer" type="Timer" parent="." unique_id=260342468]
 wait_time = 20.0
