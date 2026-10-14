@@ -8,11 +8,112 @@
 [ext_resource type="Script" uid="uid://d1r85pd17tsy1" path="res://spaceshipCutscene.gd" id="4_qxi4i"]
 [ext_resource type="Texture2D" uid="uid://crmncmmiuxul8" path="res://# Assets/Art-Assets/Main/BlackHoleBlackened.png" id="7_2sn37"]
 
+[sub_resource type="Animation" id="Animation_2sn37"]
+resource_name = "CutsceneAnimation"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:SpaceSpeed:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.2, 0, 0, -1, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:SpaceSpeed:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(-200, 0, 0, 0, 0, 1000, -1, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Spaceship:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(393, 0, 0, 0.16666667, 0, 393, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_y6fyo"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:SpaceSpeed:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spaceship:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(393, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vnpo7"]
+_data = {
+&"CutsceneAnimation": SubResource("Animation_2sn37"),
+&"RESET": SubResource("Animation_y6fyo")
+}
+
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
 script = ExtResource("1_id41n")
 OccilationSpd = 0.4
 
 [node name="Textbox" parent="." unique_id=1382413041 instance=ExtResource("2_qxi4i")]
+visible = false
 offset_left = 50.0
 offset_right = 50.0
 
@@ -20,7 +121,7 @@ offset_right = 50.0
 
 [node name="Spaceship" type="Sprite2D" parent="." unique_id=1134113367]
 z_index = 1
-position = Vector2(-198, 393)
+position = Vector2(0, 393)
 rotation = 1.5707964
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_tc7uj")
@@ -35,6 +136,9 @@ texture = ExtResource("4_ii86m")
 z_index = 2
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_2sn37")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=755800737]
+libraries/ = SubResource("AnimationLibrary_vnpo7")
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
 [connection signal="DialogueReq" from="." to="Textbox" method="DialogueRequest"]

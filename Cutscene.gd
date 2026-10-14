@@ -33,52 +33,52 @@ func _ready():
 	$Background.SpaceSpeed.x = 0.5
 	
 
-func _process(delta):
-	match AnimationStage:
-		0:
-			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenMiddle, Stage1_SlideSpeed*0.01)
-			if $Spaceship.position.x >= (910.0 + (OccilationSpd * -100)):
-				emit_signal("AnimationStageChange", 1)
-				AnimationStage = 1
-		1:
-			if SinClock < TAU:
-				SinClock += PI * OccilationSpd * delta
-			else:
-				SinClock = 0.0
-			
-			$Spaceship.position.x += (sin(SinClock) * OccilationStr)
-		2:
-			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.008)
-			if $Spaceship.position.x >= 2300:
-				AnimationStage = 3
-		3:
-			$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.008)
-			if $Background.SpaceSpeed.y <= -0.95:
-				$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 1.0, 0.008)
-				$Background.SpaceSpeed.y -= 0.002 * delta
-			else:
-				AnimationStage = 4
-				
-		4:
-			const Threshold:int = 500
-			if CountTimer < Threshold:
-				if CountTimer < Threshold*0.4:
-					$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.3, 0.01)
-				else:
-					$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.01)
-				$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, -1.0, 0.008)
-				CountTimer += 101 * delta
-			else:
-				AnimationStage = 5
-		5:
-			if $Star.position.y < 1080 * 0.449:
-				$Star.position.y = lerpf($Star.position.y, 1080*0.45, 0.012)
-				$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.008)
-				$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, 0.0, 0.008)
-			else:
-				emit_signal("AnimationStageChange", 5)
-				$Background.SpaceSpeed = Vector2.ZERO
-				$Star.position.y = 1080 * 0.45
+#func _process(delta):
+	#match AnimationStage:
+		#0:
+			#$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenMiddle, Stage1_SlideSpeed*0.01)
+			#if $Spaceship.position.x >= (910.0 + (OccilationSpd * -100)):
+				#emit_signal("AnimationStageChange", 1)
+				#AnimationStage = 1
+		#1:
+			#if SinClock < TAU:
+				#SinClock += PI * OccilationSpd * delta
+			#else:
+				#SinClock = 0.0
+			#
+			#$Spaceship.position.x += (sin(SinClock) * OccilationStr)
+		#2:
+			#$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.008)
+			#if $Spaceship.position.x >= 2300:
+				#AnimationStage = 3
+		#3:
+			#$Spaceship.position.x = lerpf($Spaceship.position.x, ScreenEnd, Stage2_SlideSpeed*0.008)
+			#if $Background.SpaceSpeed.y <= -0.95:
+				#$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 1.0, 0.008)
+				#$Background.SpaceSpeed.y -= 0.002 * delta
+			#else:
+				#AnimationStage = 4
+				#
+		#4:
+			#const Threshold:int = 500
+			#if CountTimer < Threshold:
+				#if CountTimer < Threshold*0.4:
+					#$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.3, 0.01)
+				#else:
+					#$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.01)
+				#$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, -1.0, 0.008)
+				#CountTimer += 101 * delta
+			#else:
+				#AnimationStage = 5
+		#5:
+			#if $Star.position.y < 1080 * 0.449:
+				#$Star.position.y = lerpf($Star.position.y, 1080*0.45, 0.012)
+				#$Background.SpaceSpeed.x = lerpf($Background.SpaceSpeed.x, 0.0, 0.008)
+				#$Background.SpaceSpeed.y = lerpf($Background.SpaceSpeed.y, 0.0, 0.008)
+			#else:
+				#emit_signal("AnimationStageChange", 5)
+				#$Background.SpaceSpeed = Vector2.ZERO
+				#$Star.position.y = 1080 * 0.45
 
 func _input(event):
 	## Replace This with a signal from the dialogue docs.
