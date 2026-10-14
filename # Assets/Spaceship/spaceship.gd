@@ -10,6 +10,7 @@ var fuel: float = 100.0
 @export var isActive:bool = true
 @export var gravity_source: Node2D
 @onready var sprite: Sprite2D = $Spaceship
+@onready var orbit_camera: Camera2D = $Camera2D
 
 @export var safe_orbit: float = 3000.0 # where pull is weakest
 @export var safe_orbit_pull : float = 20.0 # pull at the neutral distance
@@ -36,7 +37,20 @@ var escape_timer: float = 5.0
 var last_shown_second: int = -1
 var default_texture: Texture2D
 var ship_is_broken: bool = false
+enum OrbitState { OUTSIDE, UNSTABLE, STABLE }
 
+var orbit_state: OrbitState = OrbitState.OUTSIDE
+var last_reported_orbit_state: OrbitState = OrbitState.OUTSIDE
+var auto_orbit_active: bool = false
+var locked_orbit_radius: float = 0.0
+var locked_orbit_speed: float = 0.0
+var orbit_direction: float = 1.0
+var orbit_exit_hold: float = 0.0
+@export var orbit_exit_hold_time: float = 5.0 
+@export var orbit_outer_radius: float = 4500.0
+@export var stable_distance_tolerance: float = 350.0
+@export var stable_max_radial_speed: float = 200.0
+@export var stable_min_tangential_speed: float = 80.0
 func _ready():
 	if isActive:
 		velocity.clamp(-MAXSPEED, MAXSPEED)
@@ -93,6 +107,26 @@ func get_input():
 func _physics_process(delta: float) -> void:
 	if isActive:
 		var direction = get_input()
+		if auto_orbit_active:
+			if is_boosting:
+				auto_orbit_active = false
+			elif direction != Vector2.ZERO:
+				orbit_exit_hold += delta
+				if orbit_exit_hold >= orbit_exit_hold_time:
+					auto_orbit_active = false
+			else:
+				orbit_exit_hold = 0.0
+
+		if not auto_orbit_active and orbit_state == OrbitState.STABLE \
+				and direction == Vector2.ZERO and not is_boosting:
+			begin_auto_orbit()
+
+		if auto_orbit_active:
+			move_in_auto_orbit()
+			orbit_state = OrbitState.STABLE
+			orbit_camera.zoom = Vector2(0.125, 0.125)
+			orbit_camera.global_position = gravity_source.global_position
+			return
 		if direction:
 			velocity += direction * speed
 
@@ -127,12 +161,67 @@ func _physics_process(delta: float) -> void:
 			)
 			
 
-			print("Distance: ", distance, " Pull: ", pull)
-			print("Far Time: ", far_time)
-			print("Speed: ", speed)
+			#print("Distance: ", distance, " Pull: ", pull)
+			#print("Far Time: ", far_time)
+			#print("Speed: ", speed)
 			
 			velocity += offset.normalized() * pull * delta  
 			if ship_is_broken:
 				velocity = velocity.move_toward(gravity_source.global_position, 30 * delta) 
 				
 		move_and_slide()
+		update_orbit_state()
+		if orbit_state == OrbitState.STABLE:
+			orbit_camera.zoom = Vector2(0.125, 0.125)
+			orbit_camera.global_position = gravity_source.global_position
+		else:
+			orbit_camera.zoom = Vector2(0.4, 0.4)
+			orbit_camera.position = Vector2.ZERO
+		if orbit_state != last_reported_orbit_state:
+			print("Orbit: ", OrbitState.keys()[orbit_state])
+			last_reported_orbit_state = orbit_state
+func update_orbit_state() -> void:
+	if gravity_source == null:
+		orbit_state = OrbitState.OUTSIDE
+		return
+
+	var from_hole: Vector2 = global_position - gravity_source.global_position
+	var distance: float = from_hole.length()
+
+	if distance > orbit_outer_radius:
+		orbit_state = OrbitState.OUTSIDE
+		return
+
+	var outward: Vector2 = from_hole.normalized()
+	var radial_speed: float = velocity.dot(outward)
+	var tangential_speed: float = (velocity - outward * radial_speed).length()
+
+	if (
+		absf(distance - safe_orbit) <= stable_distance_tolerance
+		and absf(radial_speed) <= stable_max_radial_speed
+		and tangential_speed >= stable_min_tangential_speed
+	):
+		orbit_state = OrbitState.STABLE
+	else:
+		orbit_state = OrbitState.UNSTABLE
+func begin_auto_orbit() -> void:
+	var from_hole: Vector2 = global_position - gravity_source.global_position
+	var outward: Vector2 = from_hole.normalized()
+	var tangent: Vector2 = Vector2(-outward.y, outward.x)
+
+	locked_orbit_radius = from_hole.length()
+	orbit_direction = 1.0 if velocity.dot(tangent) >= 0.0 else -1.0
+	locked_orbit_speed = maxf(absf(velocity.dot(tangent)), stable_min_tangential_speed)
+	orbit_exit_hold = 0.0
+	auto_orbit_active = true
+	
+
+
+func move_in_auto_orbit() -> void:
+	var from_hole: Vector2 = global_position - gravity_source.global_position
+	var outward: Vector2 = from_hole.normalized()
+	var tangent: Vector2 = Vector2(-outward.y, outward.x)
+	var radius_error: float = from_hole.length() - locked_orbit_radius
+
+	velocity = tangent * orbit_direction * locked_orbit_speed - outward * radius_error * 2.0
+	move_and_slide()

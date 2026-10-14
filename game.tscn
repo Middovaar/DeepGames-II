@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3b86uod3ptlw"]
+[gd_scene format=3 uid="uid://b3b86uod3ptlw"]
 
 [ext_resource type="Script" uid="uid://bwewl7op7ct8c" path="res://# Scripts/game.gd" id="1_7jktm"]
 [ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
@@ -21,10 +21,10 @@ shader_parameter/line_width = 0.041
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/alpha = 0.495
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" unique_id=214245330]
 script = ExtResource("1_7jktm")
 
-[node name="SpaceDarkness" type="ColorRect" parent="."]
+[node name="SpaceDarkness" type="ColorRect" parent="." unique_id=482797354]
 z_as_relative = false
 offset_left = -7874.0
 offset_top = -8361.0
@@ -33,30 +33,31 @@ offset_bottom = 7000.0
 color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1793609864]
 position = Vector2(0, -1008)
+enabled = false
 zoom = Vector2(0.125, 0.125)
 
-[node name="Background" parent="." instance=ExtResource("3_eow3j")]
+[node name="Background" parent="." unique_id=2132571201 instance=ExtResource("3_eow3j")]
 
-[node name="Spaceship" parent="." node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
+[node name="Spaceship" parent="." unique_id=1513529976 node_paths=PackedStringArray("gravity_source") groups=["player"] instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
 z_index = 3
 position = Vector2(4923, 1360)
 gravity_source = NodePath("../Blackhole")
 
-[node name="Blackhole" type="Area2D" parent="."]
+[node name="Blackhole" type="Area2D" parent="." unique_id=889403005]
 position = Vector2(0, -1000)
 
-[node name="Sprite2D" type="Sprite2D" parent="Blackhole"]
+[node name="Sprite2D" type="Sprite2D" parent="Blackhole" unique_id=1663600268]
 scale = Vector2(2, 2)
 texture = ExtResource("4_fc0e3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Blackhole"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blackhole" unique_id=1369771548]
 position = Vector2(11, -12)
 shape = SubResource("CircleShape2D_7jktm")
 
-[node name="GravityCircles" type="TextureRect" parent="Blackhole"]
+[node name="GravityCircles" type="TextureRect" parent="Blackhole" unique_id=367327166]
 material = SubResource("ShaderMaterial_iotsf")
 offset_left = -6566.0
 offset_top = -6585.0
@@ -65,5 +66,5 @@ offset_bottom = 6582.0
 texture = ExtResource("6_hve3p")
 metadata/_edit_use_anchors_ = true
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="." unique_id=1874351812]
 script = ExtResource("8_j5wjh")
