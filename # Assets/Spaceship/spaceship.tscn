@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dbx8ak5cjwvwq"]
+[gd_scene load_steps=11 format=3 uid="uid://dbx8ak5cjwvwq"]
 
 [ext_resource type="Script" uid="uid://cf22fsw8e3dbn" path="res://# Assets/Spaceship/spaceship.gd" id="1_llyuj"]
 [ext_resource type="PackedScene" uid="uid://8kcwsx854xe0" path="res://# Assets/Spaceship/left_wing.tscn" id="2_greto"]
@@ -13,30 +13,26 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dth4k"]
 size = Vector2(20, 48)
 
-[node name="Spaceship" type="CharacterBody2D" unique_id=1636242691 node_paths=PackedStringArray("orbit_timer")]
+[node name="Spaceship" type="CharacterBody2D"]
 script = ExtResource("1_llyuj")
 countdown_textures = Array[Texture2D]([ExtResource("2_pjt0p"), ExtResource("3_a5trm"), ExtResource("4_33hv1"), ExtResource("5_ahabe"), ExtResource("6_aso6q"), ExtResource("7_gvjvs")])
 left_wing = ExtResource("2_greto")
 right_wing = ExtResource("3_5xa64")
-orbit_timer = NodePath("Timer")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1465722490]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_dth4k")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1309439016]
-scale = Vector2(0.1899227, 0.18992265)
-
-[node name="Spaceship" type="Sprite2D" parent="." unique_id=629792556]
-scale = Vector2(0.1899227, 0.18992265)
+[node name="Spaceship" type="Sprite2D" parent="."]
+scale = Vector2(0.189923, 0.189923)
 texture = ExtResource("2_pjt0p")
 
-[node name="FuelBar" type="ProgressBar" parent="." unique_id=276803563]
+[node name="FuelBar" type="ProgressBar" parent="."]
 offset_left = -901.0
 offset_top = -481.0
 offset_right = -532.0
 offset_bottom = -454.0
 value = 100.0
 
-[node name="Timer" type="Timer" parent="." unique_id=159052449]
+[node name="Timer" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
