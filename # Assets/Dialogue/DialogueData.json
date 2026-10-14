@@ -10,7 +10,7 @@
 	},
 	
 	"PressSpace":{
-		"A": {"text":["[color=#C5DB81][font_size=50][pulse freq=1.0 color=#ffffff40 ease=-0.9]Press Space"], "Speed": 1.0, "Location": 1}, 
+		"A": {"text":["[center][font_size=50][pulse freq=1.0 color=#ffffff40 ease=-0.9]Press Space"], "Speed": 1.0, "Location": 1, "Special": "Hint"}, 
 		 "Description": "A dummmy 'Press Space' prompt",
 		"Items": 1,
 	},
@@ -26,7 +26,7 @@
 	},
 	
 	"IntroSequence2":{
-		"A": {"text":["But ", "as ", "I ", "got ", "clo", "ser ", "to ", "it,", "my ", "grav", "ity ", "de", "tec", "tion ", "sys", "tem ", "star", "ted ", "soun", "ding ", "an ", "al", "arm."], "Speed": 1.2, "Location": 1}, 
+		"A": {"text":["But ", "as ", "I ", "got ", "clo", "ser ", "to ", "it, ", "my ", "grav", "ity ", "de", "tec", "tion ", "sys", "tem ", "star", "ted ", "soun", "ding ", "an ", "al", "arm."], "Speed": 1.2, "Location": 1}, 
 		
 		"Description": "Game Start Sequence Two",
 		"Items": 1,
@@ -35,13 +35,16 @@
 	"IntroSequence3":{
 		"A": {"text":["It ", "turn", "ed ", "out ", "that ", "the ", "so", "-", "call", "ed ", "un", "known ", "cel", "esti", "al ", "body ", "was ", "act", "ua", "lly ", "a ", "black ", "hole."], "Speed": 1.2, "Location": 1}, 
 		"B": {"text":["Its ", "mass", "ive ", "grav", "ity ",  "was ", "pull", "ing ", "my ", "space", "ship ", "to", "wards ", "it", "self."], "Speed": 1.2},
-		"C": {"text":["I ", "don't ", "know ", "what ", "to ", "do ", "next", ".", ".", "."], "Speed": 1.2},
 		
 		"Description": "Game Start Sequence One",
-		"Items": 3,
+		"Items": 2,
 	},
 	
-	
-	
+	"IntroSequence4":{
+		"A": {"text":["I ", "don't ", "know ", "what ", "to ", "do ", "next", ".", ".", "."], "Speed": 1.2, "Location": 1}, 
+
+		"Description": "Game Start Sequence One",
+		"Items": 1,
+	},
 	
 }

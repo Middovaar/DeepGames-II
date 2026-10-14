@@ -36,7 +36,7 @@ func _ready():
 	var file = FileAccess.open(DialoguePath, FileAccess.READ) #open JSON as readable
 	var parser = file.get_as_text() #extract data as String
 	var jsonObject = JSON.new() #create JSON object
-	assert(file.file_exists(DialoguePath), "Attempted to load Json, and json does not exist!") #Throw error when no JSON found
+	assert(FileAccess.file_exists(DialoguePath), "Attempted to load Json, and json does not exist!") #Throw error when no JSON found
 	ShowDialgBox(false)
 	jsonObject.parse(parser)
 	Dialogue = jsonObject.data
@@ -97,7 +97,6 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	var blockTextData = Dialogue[DialogueUUID][BlockKey]
 	
 	# Push the contents of BlockKey.text to ReadyText
-	print(blockTextData.text)
 	ReadyText = blockTextData.text
 	
 	# Count the number of TextBlocks within the given String Key (filtering out metadata strings)
@@ -116,6 +115,13 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	else:
 		blockTextSpeed = 1.0
 		
+	if blockTextData.has("Special"):
+		match blockTextData["Special"]:
+			"Hint":
+				ShowDiagBoxButLetTextThrough()
+			_:
+				pass
+	
 	# Sequentially concatenate strings and await timer
 	TextIsAnimated = true
 	for string_part in ReadyText:
@@ -170,3 +176,7 @@ func ShowDialgBox(donotHide) -> void:
 	match donotHide:
 		true: %DialogueBox.modulate = Color.WHITE
 		false: %DialogueBox.modulate = Color.TRANSPARENT
+
+func ShowDiagBoxButLetTextThrough() -> void:
+	%DialogueBox.self_modulate = Color.TRANSPARENT
+	%Profile.self_modulate = Color.TRANSPARENT

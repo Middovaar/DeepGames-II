@@ -2,6 +2,7 @@ extends Node2D
 
 ## >> Internal Signals
 signal AnimationStageChange(Stage:int)
+signal DiagLoopAllClear()
 
 ## >> External Signals
 signal DialogueReq(DialogueUUID:String)
@@ -25,12 +26,14 @@ signal GoToGame()
 var SinClock:float = 0.0
 var CountTimer:float = 0.0
 var single:bool = true
+var MayExitCutscene = false
 
 var DialogueIntroFlag:bool = false
 
 func _ready():
 	$Background.ControllableStars = false
 	$Background.SpaceSpeed.x = 0.5
+	#$AnimationPlayer.play("CutsceneAnimation")
 	
 
 #func _process(delta):
@@ -80,13 +83,9 @@ func _ready():
 				#$Background.SpaceSpeed = Vector2.ZERO
 				#$Star.position.y = 1080 * 0.45
 
-func _input(event):
-	## Replace This with a signal from the dialogue docs.
-	if Input.is_action_just_pressed("ui_accept"):
-		if AnimationStage == 1 and DialogueIntroFlag:
-			AnimationStage = 2
-		if AnimationStage == 5:
-			emit_signal("GoToGame")
+func _input(_event):
+	if Input.is_action_just_pressed("ui_accept") and MayExitCutscene:
+		emit_signal("GoToGame")
 
 func _on_animation_stage_change(Stage):
 	match Stage:
@@ -102,7 +101,44 @@ func _on_animation_stage_change(Stage):
 			pass
 
 
-func _on_DialogueFinished(DialogueUUID):
+func _on_DialogueFinished(DialogueUUID) -> void:
+	$Textbox.visible = false
 	match DialogueUUID:
-		"Intro":
-			DialogueIntroFlag = true
+		"IntroSequence1":
+			await self.DiagLoopAllClear
+			_on_AnimationStage(2)
+		"IntroSequence2":
+			await self.DiagLoopAllClear
+			_on_AnimationStage(4)
+		"IntroSequence3":
+			_on_AnimationStage(6)
+		"IntroSequence4":
+			_on_AnimationStage(7)
+		"PressSpace":
+			MayExitCutscene = true
+
+func _on_AnimationStage(Stage) -> void:
+	$Textbox.visible = true
+	match Stage:
+		1:
+			$Animations.play("CutsceneDialogueLoop")
+			emit_signal("DialogueReq", "IntroSequence1")
+		2:
+			$Animations.play("CutsceneZoomAway")
+		3:
+			$Animations.play("CutsceneDialogueLoop")
+			emit_signal("DialogueReq", "IntroSequence2")
+		4:
+			$Animations.play("CutsceneCameraSpeedAhead")
+		5:
+			emit_signal("DialogueReq", "IntroSequence3")
+		6:
+			$Animations.play("CutsceneGameTime")
+			emit_signal("DialogueReq", "IntroSequence4")
+		7:
+			emit_signal("DialogueReq", "PressSpace")
+		_:
+			pass
+
+func _MayExitDiagLoop():
+	emit_signal("DiagLoopAllClear")
