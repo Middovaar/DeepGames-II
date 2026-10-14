@@ -4,15 +4,454 @@
 [ext_resource type="Script" uid="uid://colvdvuluwga4" path="res://Cutscene.gd" id="1_id41n"]
 [ext_resource type="PackedScene" uid="uid://brv7jqbf70wx0" path="res://# Assets/Dialogue/Textbox.res" id="2_qxi4i"]
 [ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Spaceship/Spaceship.png" id="3_tc7uj"]
-[ext_resource type="Texture2D" uid="uid://c07l4sa7ghdq0" path="res://# Assets/Art-Assets/Menu/Star.png" id="4_ii86m"]
 [ext_resource type="Script" uid="uid://d1r85pd17tsy1" path="res://spaceshipCutscene.gd" id="4_qxi4i"]
 [ext_resource type="Texture2D" uid="uid://crmncmmiuxul8" path="res://# Assets/Art-Assets/Main/BlackHoleBlackened.png" id="7_2sn37"]
+[ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="7_y6fyo"]
+[ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Douglas Art/Shaders/black_square.png" id="8_vnpo7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jrxm"]
+shader = ExtResource("7_y6fyo")
+shader_parameter/resolution = 512.0
+shader_parameter/speed = 0.33100025322250026
+shader_parameter/line_frequency = 7.85600032566
+shader_parameter/center_bunching = 1.0
+shader_parameter/line_width = 0.0410000019475
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 0.4950000235125
+
+[sub_resource type="Animation" id="Animation_s5fx4"]
+resource_name = "CutsceneCameraSpeedAhead"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spaceship:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(960, -0.25, 0, 0.25, 0, 960, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spaceship:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(393, -0.240463, -66.95072, 0.84336245, 234.8125, 1393, -0.39999998, -284.1875, 0, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Background:SpaceSpeed:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.33333334, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Background:SpaceSpeed:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1, -0.33333334, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [5],
+"method": &"_on_AnimationStage"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_vnpo7"]
+resource_name = "CutsceneDialogueLoop"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spaceship:offset:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, -2000, -0.5, 0, 0.5, 0, 0, 0, 0, 0, 0, 2000, -0.5, 0, 0.5, 0, 0, -0.16666663, 500, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 2.5, 3.75, 5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spaceship:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(960, -1, 0, 0, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(393, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.5000002),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_MayExitDiagLoop"
+}, {
+"args": [],
+"method": &"_MayExitDiagLoop"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xy01b"]
+resource_name = "GameTime"
+length = 2.3333333
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spaceship:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(1393, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackHole:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(-300, 0, 0, 0, 480, 360, 0, -7.6, 0, 0),
+"times": PackedFloat32Array(0, 2.3333333)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background:SpaceSpeed:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 2.3333333)
+}
+
+[sub_resource type="Animation" id="Animation_l2w4u"]
+resource_name = "CutsceneIdle"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackHole:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(360, 0, -7.6, 0, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:SpaceSpeed:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, 0, -7.6, 0, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_2sn37"]
+resource_name = "CutsceneAnimation"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:SpaceSpeed:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(1, 0, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:SpaceSpeed:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(-200, 0, 0, 0, 0, 960, -1, 0, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Spaceship:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(393, 0, 0, 0.16666667, 0, 393, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1],
+"method": &"_on_AnimationStage"
+}]
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Spaceship:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(1.5707964, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BlackHole:position:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-300, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_0jrxm"]
+resource_name = "CutsceneZoomAway"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:SpaceSpeed:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.33333334, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:SpaceSpeed:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -1, -0.33333334, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(1.5707964, 0, 0, 0.2, 0, 0, -0.4, -0.1, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [3],
+"method": &"_on_AnimationStage"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_y6fyo"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:SpaceSpeed:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spaceship:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spaceship:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(393, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Spaceship:offset:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Spaceship:offset:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Spaceship:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Background:SpaceSpeed:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("BlackHole:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vnpo7"]
+_data = {
+&"CutsceneCameraSpeedAhead": SubResource("Animation_s5fx4"),
+&"CutsceneDialogueLoop": SubResource("Animation_vnpo7"),
+&"CutsceneGameTime": SubResource("Animation_xy01b"),
+&"CutsceneIdle": SubResource("Animation_l2w4u"),
+&"CutsceneStart": SubResource("Animation_2sn37"),
+&"CutsceneZoomAway": SubResource("Animation_0jrxm"),
+&"RESET": SubResource("Animation_y6fyo")
+}
 
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
 script = ExtResource("1_id41n")
 OccilationSpd = 0.4
 
 [node name="Textbox" parent="." unique_id=1382413041 instance=ExtResource("2_qxi4i")]
+visible = false
 offset_left = 50.0
 offset_right = 50.0
 
@@ -20,22 +459,36 @@ offset_right = 50.0
 
 [node name="Spaceship" type="Sprite2D" parent="." unique_id=1134113367]
 z_index = 1
-position = Vector2(-198, 393)
-rotation = 1.5707964
+position = Vector2(0, 393)
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_tc7uj")
 script = ExtResource("4_qxi4i")
 
-[node name="Star" type="Sprite2D" parent="." unique_id=1724261918]
-position = Vector2(960, -190)
-scale = Vector2(0.34948096, 0.349481)
-texture = ExtResource("4_ii86m")
-
-[node name="BlackHole" type="Sprite2D" parent="Star" unique_id=1817415259]
+[node name="BlackHole" type="Sprite2D" parent="." unique_id=1817415259]
 z_index = 2
-scale = Vector2(0.1, 0.1)
+position = Vector2(960, 0)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("7_2sn37")
+
+[node name="GravityCircles" type="TextureRect" parent="BlackHole" unique_id=1164047500]
+z_index = -1
+material = SubResource("ShaderMaterial_0jrxm")
+offset_left = -940.7324
+offset_top = -959.7324
+offset_right = 975.7324
+offset_bottom = 956.7324
+texture = ExtResource("8_vnpo7")
+
+[node name="Animations" type="AnimationPlayer" parent="." unique_id=755800737]
+libraries/ = SubResource("AnimationLibrary_vnpo7")
+autoplay = &"CutsceneStart"
+next/CutsceneDialogueLoop = &"CutsceneDialogueLoop"
+next/CutsceneGameTime = &"CutsceneIdle"
+next/CutsceneIdle = &"CutsceneIdle"
+next/CutsceneStart = &"CutsceneStart"
+blend_times = [&"CutsceneDialogueLoop", &"CutsceneStart", 0.1]
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
 [connection signal="DialogueReq" from="." to="Textbox" method="DialogueRequest"]
 [connection signal="FinishedDialogue" from="Textbox" to="." method="_on_DialogueFinished"]
+[connection signal="animation_finished" from="Animations" to="." method="_on_animations_animation_finished"]
