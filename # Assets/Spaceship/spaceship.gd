@@ -22,7 +22,6 @@ var fuel: float = 100.0
 @export var far_boost : float = 3000.0     # extra pull at full boost
 var far_time: float = 0.0
 var last_direction
-var pull: float 
 
 var is_boosting: bool = false
 var is_escaping_with_fuel: bool = false
@@ -38,19 +37,13 @@ var last_shown_second: int = -1
 var default_texture: Texture2D
 var ship_is_broken: bool = false
 
-@export var orbit_timer: Timer
-@export var timer_max_time: float = 20.0
-
 func _ready():
 	if isActive:
-		$Camera2D.visible = false
 		velocity.clamp(-MAXSPEED, MAXSPEED)
 		last_direction = Vector2.RIGHT
 		speed = player_normal_speed
 		default_texture = sprite.texture
 		escape_timer = escape_countdown_time
-		orbit_timer.wait_time = timer_max_time
-		orbit_timer.start()
 
 func _process(delta: float) -> void:
 	is_boosting = Input.is_action_pressed("Fuel") and fuel > 0.0
@@ -74,24 +67,10 @@ func _process(delta: float) -> void:
 				elif index == 5:
 					spawn_wing(left_wing, Vector2.LEFT)
 
-	if escape_timer <= 0.0:
-		# Spawn the wings 
-		print("ship is broken")
-		ship_is_broken = true
-	
-	if pull > 300.0:
-		orbit_timer.start()  
-	print( " Orbit Timer: ", orbit_timer.time_left)
-	if orbit_timer.time_left > 0.0:
-		print(pull)
-		
-
-	if orbit_timer.time_left <= 0.0:
-		# Handle the case when the timer runs out
-		
-		print("Timer ran out! Game Over.")
-			
-			
+		if escape_timer <= 0.0:
+			# Spawn the wings 
+			print("ship is broken")
+			ship_is_broken = true
 
 
 func spawn_wing(wing_scene: PackedScene, _side: Vector2) -> void:
@@ -128,7 +107,7 @@ func _physics_process(delta: float) -> void:
 			# just add timer that resets if they leave safe orbit and get win screen if timer runs out
 
 			var ratio: float = max(distance, 1.0) / safe_orbit
-			pull = safe_orbit_pull + pull_strength_from_safe * pow(ratio - 1.0 / ratio, 2)
+			var pull: float = safe_orbit_pull + pull_strength_from_safe * pow(ratio - 1.0 / ratio, 2)
 			pull = min(pull, max_pull)
 
 
@@ -148,7 +127,9 @@ func _physics_process(delta: float) -> void:
 			)
 			
 
-			#print("Distance: ", distance, " Pull: ", pull)
+			print("Distance: ", distance, " Pull: ", pull)
+			print("Far Time: ", far_time)
+			print("Speed: ", speed)
 			
 			velocity += offset.normalized() * pull * delta  
 			if ship_is_broken:
