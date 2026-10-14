@@ -1,5 +1,6 @@
 extends CharacterBody2D
-
+signal stable_orbit_completed
+signal ship_torn_apart
 const MAXSPEED: Vector2 = Vector2(500,500)
 var speed: float = 30
 var fuel: float = 100.0
@@ -46,8 +47,30 @@ var locked_orbit_radius: float = 0.0
 var locked_orbit_speed: float = 0.0
 var orbit_direction: float = 1.0
 var orbit_exit_hold: float = 0.0
-@export var orbit_exit_hold_time: float = 5.0 
-@export var orbit_outer_radius: float = 4500.0
+
+var stable_orbit_time: float = 0.0
+var win_condition_sent: bool = false
+
+@export var unstable_shake_strength: float = 35.0
+var sprite_base_position: Vector2 = Vector2.ZERO
+
+@export var orbit_exit_hold_time: float = 3.0 
+@export var unstable_inner_radius: float = 5800.0
+@export var unstable_outer_radius: float = 6200.0
+@export var escape_intent_time: float = 1.0
+
+var escape_held_time: float = 0.0
+var unstable_armed: bool = true
+
+@export var unstable_entry_grace: float = 0.8
+@export var unstable_exit_hold_time: float = 0.5
+
+var unstable_age: float = 0.0
+var unstable_exit_hold: float = 0.0
+var unstable_input_released: bool = false
+@export var unstable_idle_tear_time: float = 8.0
+var unstable_idle_time: float = 0.0
+
 @export var stable_distance_tolerance: float = 350.0
 @export var stable_max_radial_speed: float = 200.0
 @export var stable_min_tangential_speed: float = 80.0
@@ -57,6 +80,7 @@ func _ready():
 		last_direction = Vector2.RIGHT
 		speed = player_normal_speed
 		default_texture = sprite.texture
+		sprite_base_position = sprite.position
 		escape_timer = escape_countdown_time
 
 func _process(delta: float) -> void:
@@ -81,12 +105,30 @@ func _process(delta: float) -> void:
 				elif index == 5:
 					spawn_wing(left_wing, Vector2.LEFT)
 
-		if escape_timer <= 0.0:
-			# Spawn the wings 
-			print("ship is broken")
+		if escape_timer <= 0.0 and not ship_is_broken:
 			ship_is_broken = true
+			print("ship is broken")
+			ship_torn_apart.emit()
+	if orbit_state == OrbitState.UNSTABLE:
+		sprite.position = sprite_base_position + Vector2(
+			randf_range(-unstable_shake_strength, unstable_shake_strength),
+			randf_range(-unstable_shake_strength, unstable_shake_strength)
+		)
+	else:
+		sprite.position = sprite_base_position
+	if (
+		orbit_state == OrbitState.UNSTABLE
+		and Input.get_vector("left", "right", "up", "down") == Vector2.ZERO
+		and not is_boosting
+	):
+		unstable_idle_time += delta
+	else:
+		unstable_idle_time = 0.0
 
-
+	if unstable_idle_time >= unstable_idle_tear_time and not ship_is_broken:
+		ship_is_broken = true
+		print("Ship torn apart in unstable orbit")
+		ship_torn_apart.emit()
 func spawn_wing(wing_scene: PackedScene, _side: Vector2) -> void:
 	if wing_scene == null:
 		return
@@ -107,7 +149,10 @@ func get_input():
 func _physics_process(delta: float) -> void:
 	if isActive:
 		var direction = get_input()
-		if auto_orbit_active:
+		if auto_orbit_active and orbit_state == OrbitState.UNSTABLE:
+			update_orbit_state(delta, direction)
+			auto_orbit_active = orbit_state == OrbitState.UNSTABLE
+		elif auto_orbit_active:
 			if is_boosting:
 				auto_orbit_active = false
 			elif direction != Vector2.ZERO:
@@ -123,10 +168,24 @@ func _physics_process(delta: float) -> void:
 
 		if auto_orbit_active:
 			move_in_auto_orbit()
-			orbit_state = OrbitState.STABLE
-			orbit_camera.zoom = Vector2(0.125, 0.125)
+
+			if orbit_state == OrbitState.STABLE and direction == Vector2.ZERO and not is_boosting:
+				stable_orbit_time += delta
+			else:
+				stable_orbit_time = 0.0
+
+			if stable_orbit_time >= 10.0 and not win_condition_sent:
+				win_condition_sent = true
+				print("WIN CONDITION MET")
+				stable_orbit_completed.emit()
+
+			if orbit_state == OrbitState.STABLE:
+				orbit_camera.zoom = Vector2(0.125, 0.125)
+			else:
+				orbit_camera.zoom = Vector2(0.08, 0.08)
 			orbit_camera.global_position = gravity_source.global_position
 			return
+		stable_orbit_time = 0.0
 		if direction:
 			velocity += direction * speed
 
@@ -170,9 +229,12 @@ func _physics_process(delta: float) -> void:
 				velocity = velocity.move_toward(gravity_source.global_position, 30 * delta) 
 				
 		move_and_slide()
-		update_orbit_state()
+		update_orbit_state(delta, direction)
 		if orbit_state == OrbitState.STABLE:
 			orbit_camera.zoom = Vector2(0.125, 0.125)
+			orbit_camera.global_position = gravity_source.global_position
+		elif orbit_state == OrbitState.UNSTABLE:
+			orbit_camera.zoom = Vector2(0.1, 0.1)
 			orbit_camera.global_position = gravity_source.global_position
 		else:
 			orbit_camera.zoom = Vector2(0.4, 0.4)
@@ -180,31 +242,77 @@ func _physics_process(delta: float) -> void:
 		if orbit_state != last_reported_orbit_state:
 			print("Orbit: ", OrbitState.keys()[orbit_state])
 			last_reported_orbit_state = orbit_state
-func update_orbit_state() -> void:
+func update_orbit_state(delta: float, direction: Vector2) -> void:
 	if gravity_source == null:
 		orbit_state = OrbitState.OUTSIDE
 		return
 
 	var from_hole: Vector2 = global_position - gravity_source.global_position
 	var distance: float = from_hole.length()
-
-	if distance > orbit_outer_radius:
-		orbit_state = OrbitState.OUTSIDE
-		return
-
 	var outward: Vector2 = from_hole.normalized()
 	var radial_speed: float = velocity.dot(outward)
 	var tangential_speed: float = (velocity - outward * radial_speed).length()
+	var in_unstable_band: bool = (
+		distance >= unstable_inner_radius
+		and distance <= unstable_outer_radius
+	)
 
+	# Returning toward the black hole allows a future escape attempt.
+	if distance < unstable_inner_radius - 200.0:
+		unstable_armed = true
+
+	# Once caught in unstable orbit, stay there until the player escapes
+	# or the ship leaves the narrow band.
+	if orbit_state == OrbitState.UNSTABLE:
+		unstable_age += delta
+
+		if direction == Vector2.ZERO:
+			unstable_input_released = true
+			unstable_exit_hold = 0.0
+
+		if unstable_age >= unstable_entry_grace:
+			if is_boosting:
+				orbit_state = OrbitState.OUTSIDE
+			elif unstable_input_released and direction != Vector2.ZERO:
+				unstable_exit_hold += delta
+				if unstable_exit_hold >= unstable_exit_hold_time:
+					orbit_state = OrbitState.OUTSIDE
+
+		if orbit_state == OrbitState.OUTSIDE:
+			escape_held_time = 0.0
+			unstable_exit_hold = 0.0
+		return
+
+	# Keep the existing stable-orbit conditions.
 	if (
 		absf(distance - safe_orbit) <= stable_distance_tolerance
 		and absf(radial_speed) <= stable_max_radial_speed
 		and tangential_speed >= stable_min_tangential_speed
 	):
 		orbit_state = OrbitState.STABLE
+		escape_held_time = 0.0
+		return
+
+	# Normal flight is the default, including the approach to the black hole.
+	orbit_state = OrbitState.OUTSIDE
+
+	if direction.dot(outward) > 0.5:
+		escape_held_time += delta
 	else:
+		escape_held_time = 0.0
+
+	if (
+		unstable_armed
+		and in_unstable_band
+		and escape_held_time >= escape_intent_time
+	):
 		orbit_state = OrbitState.UNSTABLE
-func begin_auto_orbit() -> void:
+		unstable_armed = false
+		unstable_age = 0.0
+		unstable_exit_hold = 0.0
+		unstable_input_released = false
+		begin_auto_orbit(OrbitState.UNSTABLE)
+func begin_auto_orbit(new_state: OrbitState = OrbitState.STABLE) -> void:
 	var from_hole: Vector2 = global_position - gravity_source.global_position
 	var outward: Vector2 = from_hole.normalized()
 	var tangent: Vector2 = Vector2(-outward.y, outward.x)
@@ -212,7 +320,13 @@ func begin_auto_orbit() -> void:
 	locked_orbit_radius = from_hole.length()
 	orbit_direction = 1.0 if velocity.dot(tangent) >= 0.0 else -1.0
 	locked_orbit_speed = maxf(absf(velocity.dot(tangent)), stable_min_tangential_speed)
+
+	if new_state == OrbitState.UNSTABLE:
+		locked_orbit_speed = maxf(locked_orbit_speed, MAXSPEED.x)
+
 	orbit_exit_hold = 0.0
+	is_escaping_with_fuel = false
+	orbit_state = new_state
 	auto_orbit_active = true
 	
 

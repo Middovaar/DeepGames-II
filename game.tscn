@@ -7,6 +7,9 @@
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="5_vef74"]
 [ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Douglas Art/Shaders/black_square.png" id="6_hve3p"]
 [ext_resource type="Script" uid="uid://ch1dcnta85x5r" path="res://r-to-restart.gd" id="8_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://b8ieplyqk1h0m" path="res://# Assets/Art-Assets/UI/VictoryScreen.png" id="8_vef74"]
+[ext_resource type="Texture2D" uid="uid://dq6vukbq0deb2" path="res://# Assets/Art-Assets/UI/LoseScene.png" id="9_hve3p"]
+[ext_resource type="Texture2D" uid="uid://byivwx4g3of0q" path="res://# Assets/Art-Assets/UI/LoseScene-PressRtoRestart.png" id="10_hve3p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jktm"]
 radius = 374.534
@@ -68,3 +71,53 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Node" type="Node" parent="." unique_id=1874351812]
 script = ExtResource("8_j5wjh")
+
+[node name="ResultScreen" type="CanvasLayer" parent="." unique_id=859803267]
+
+[node name="WinScreen" type="TextureRect" parent="ResultScreen" unique_id=645983240]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_vef74")
+expand_mode = 1
+
+[node name="Restart" type="TextureRect" parent="ResultScreen/WinScreen" unique_id=66093713]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -385.5
+offset_top = -50.0
+offset_right = 385.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("10_hve3p")
+
+[node name="LoseScreen" type="TextureRect" parent="ResultScreen" unique_id=1579860045]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_hve3p")
+expand_mode = 1
+
+[node name="Restart" type="TextureRect" parent="ResultScreen/LoseScreen" unique_id=113186981]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -385.5
+offset_top = -50.0
+offset_right = 385.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("10_hve3p")
