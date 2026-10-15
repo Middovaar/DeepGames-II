@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="1_4k1er"]
 [ext_resource type="Script" uid="uid://colvdvuluwga4" path="res://Cutscene.gd" id="1_id41n"]
 [ext_resource type="PackedScene" uid="uid://brv7jqbf70wx0" path="res://# Assets/Dialogue/Textbox.res" id="2_qxi4i"]
-[ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Spaceship/Spaceship.png" id="3_tc7uj"]
+[ext_resource type="Texture2D" uid="uid://do2p1w43i0m26" path="res://# Assets/Art-Assets/Spaceship/Spaceship.png" id="3_tc7uj"]
+[ext_resource type="Texture2D" uid="uid://jx5n32ex8ajw" path="res://# Assets/Art-Assets/Spaceship/SpaceshipB.png" id="3_vnpo7"]
 [ext_resource type="Script" uid="uid://d1r85pd17tsy1" path="res://spaceshipCutscene.gd" id="4_qxi4i"]
 [ext_resource type="Texture2D" uid="uid://crmncmmiuxul8" path="res://# Assets/Art-Assets/Main/BlackHoleBlackened.png" id="7_2sn37"]
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="7_y6fyo"]
@@ -449,6 +450,8 @@ _data = {
 [node name="StartCutscene" type="Node2D" unique_id=1499113365]
 script = ExtResource("1_id41n")
 OccilationSpd = 0.4
+SpaceshipA = ExtResource("3_tc7uj")
+SpaceshipB = ExtResource("3_vnpo7")
 
 [node name="Textbox" parent="." unique_id=1382413041 instance=ExtResource("2_qxi4i")]
 visible = false

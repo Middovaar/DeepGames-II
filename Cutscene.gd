@@ -30,9 +30,16 @@ var MayExitCutscene = false
 
 var DialogueIntroFlag:bool = false
 
+@export_category("Textures")
+@export var SpaceshipA:CompressedTexture2D
+@export var SpaceshipB:CompressedTexture2D
+@export var ThrusterTimers:float = 1.2
+
+
 func _ready():
 	$Background.ControllableStars = false
 	$Background.SpaceSpeed.x = 0.5
+	SpaceShipThrusters()
 	#$AnimationPlayer.play("CutsceneAnimation")
 	
 
@@ -142,3 +149,10 @@ func _on_AnimationStage(Stage) -> void:
 
 func _MayExitDiagLoop():
 	emit_signal("DiagLoopAllClear")
+
+func SpaceShipThrusters() -> void:
+	await get_tree().create_timer(ThrusterTimers).timeout
+	$Spaceship.texture = SpaceshipA
+	await get_tree().create_timer(ThrusterTimers).timeout
+	$Spaceship.texture = SpaceshipB
+	SpaceShipThrusters()

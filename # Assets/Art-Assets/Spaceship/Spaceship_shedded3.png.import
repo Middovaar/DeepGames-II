@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyeoclutfpys5"
-path="res://.godot/imported/wing1.png-83db5320600c215ef77deec223a9adef.ctex"
+uid="uid://5wr7l8utjf7j"
+path="res://.godot/imported/Spaceship_shedded3.png-ddb78d824332897c6d367711a854b13e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://# Assets/Spaceship/wing1.png"
-dest_files=["res://.godot/imported/wing1.png-83db5320600c215ef77deec223a9adef.ctex"]
+source_file="res://# Assets/Art-Assets/Spaceship/Spaceship_shedded3.png"
+dest_files=["res://.godot/imported/Spaceship_shedded3.png-ddb78d824332897c6d367711a854b13e.ctex"]
 
 [params]
 

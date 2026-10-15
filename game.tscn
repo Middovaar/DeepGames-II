@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3b86uod3ptlw"]
 
 [ext_resource type="Script" uid="uid://bwewl7op7ct8c" path="res://# Scripts/game.gd" id="1_7jktm"]
-[ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://dbx8ak5cjwvwq" path="res://# Assets/Art-Assets/Spaceship/spaceship.tscn" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="3_eow3j"]
 [ext_resource type="Texture2D" uid="uid://t8r1t85mubcv" path="res://# Assets/Art-Assets/Main/BlackHole.png" id="4_fc0e3"]
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="5_vef74"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ieplyqk1h0m" path="res://# Assets/Art-Assets/UI/VictoryScreen.png" id="8_vef74"]
 [ext_resource type="Texture2D" uid="uid://dq6vukbq0deb2" path="res://# Assets/Art-Assets/UI/LoseScene.png" id="9_hve3p"]
 [ext_resource type="Texture2D" uid="uid://byivwx4g3of0q" path="res://# Assets/Art-Assets/UI/LoseScene-PressRtoRestart.png" id="10_hve3p"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jktm"]
 radius = 374.534
