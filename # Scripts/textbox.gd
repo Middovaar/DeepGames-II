@@ -153,7 +153,8 @@ func TextIncrement():
 	emit_signal("advance_dialogue")
 
 ## Resets displayed Dialogue to text.EMPTYSTRING
-func ClearDialogue(): 
+func ClearDialogue():
+	self.position.x = 50.0 
 	%Text.text = ""
 	DisplayedText = ""
 	ReadyText = []
@@ -178,5 +179,6 @@ func ShowDialgBox(donotHide) -> void:
 		false: %DialogueBox.modulate = Color.TRANSPARENT
 
 func ShowDiagBoxButLetTextThrough() -> void:
+	self.position.x = -133.0
 	%DialogueBox.self_modulate = Color.TRANSPARENT
 	%Profile.self_modulate = Color.TRANSPARENT

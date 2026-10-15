@@ -40,9 +40,9 @@ func _ready():
 	$Background.ControllableStars = false
 	$Background.SpaceSpeed.x = 0.5
 	SpaceShipThrusters()
-	#$AnimationPlayer.play("CutsceneAnimation")
 	
 
+### OLD DELTA FUNCTION
 #func _process(delta):
 	#match AnimationStage:
 		#0:

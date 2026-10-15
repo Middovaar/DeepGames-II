@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dq6vukbq0deb2" path="res://# Assets/Art-Assets/UI/LoseScene.png" id="9_hve3p"]
 [ext_resource type="Texture2D" uid="uid://byivwx4g3of0q" path="res://# Assets/Art-Assets/UI/LoseScene-PressRtoRestart.png" id="10_hve3p"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jktm"]
 radius = 374.534
 

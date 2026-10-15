@@ -22,7 +22,7 @@ shader_parameter/alpha = 0.4950000235125
 
 [sub_resource type="Animation" id="Animation_s5fx4"]
 resource_name = "CutsceneCameraSpeedAhead"
-length = 1.5
+length = 5.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -92,6 +92,17 @@ tracks/5/keys = {
 "method": &"_on_AnimationStage"
 }]
 }
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Spaceship:offset:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, -2000, -0.5, 0, 0.5, 0, 0, 0, 0, 0, 0, 2000, -0.5, 0, 0.5, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1.25, 2.5, 3.75, 5)
+}
 
 [sub_resource type="Animation" id="Animation_vnpo7"]
 resource_name = "CutsceneDialogueLoop"
@@ -105,7 +116,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
-"points": PackedFloat32Array(0, 0, 0, 0, 0, -2000, -0.5, 0, 0.5, 0, 0, 0, 0, 0, 0, 2000, -0.5, 0, 0.5, 0, 0, -0.16666663, 500, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, -2000, -0.5, 0, 0.5, 0, 0, 0, 0, 0, 0, 2000, -0.5, 0, 0.5, 0, 0, 0, 0, 0, 0),
 "times": PackedFloat32Array(0, 1.25, 2.5, 3.75, 5)
 }
 tracks/1/type = "bezier"
@@ -264,7 +275,7 @@ tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(1.9666667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [1],
@@ -383,7 +394,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Spaceship:offset:x")
+tracks/3/path = NodePath("Spaceship:offset:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -394,7 +405,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Spaceship:offset:y")
+tracks/4/path = NodePath("Spaceship:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -405,7 +416,7 @@ tracks/4/keys = {
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Spaceship:rotation")
+tracks/5/path = NodePath("Background:SpaceSpeed:y")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -416,21 +427,10 @@ tracks/5/keys = {
 tracks/6/type = "bezier"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Background:SpaceSpeed:y")
+tracks/6/path = NodePath("BlackHole:position:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/7/type = "bezier"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("BlackHole:position:y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
@@ -489,7 +489,6 @@ next/CutsceneDialogueLoop = &"CutsceneDialogueLoop"
 next/CutsceneGameTime = &"CutsceneIdle"
 next/CutsceneIdle = &"CutsceneIdle"
 next/CutsceneStart = &"CutsceneStart"
-blend_times = [&"CutsceneDialogueLoop", &"CutsceneStart", 0.1]
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
 [connection signal="DialogueReq" from="." to="Textbox" method="DialogueRequest"]

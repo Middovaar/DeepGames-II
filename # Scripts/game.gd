@@ -8,6 +8,7 @@ var game_finished: bool = false
 var returning_to_menu := false
 
 
+
 func _ready() -> void:
 	blackhole.body_entered.connect(_on_blackhole_body_entered)
 	spaceship.connect("stable_orbit_completed", _on_stable_orbit_completed)
