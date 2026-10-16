@@ -11,6 +11,8 @@ extends Node2D
 const BGM1: AudioStream = preload("res://# Assets/Audio/BGM1.mp3")
 const BGM2: AudioStream = preload("res://# Assets/Audio/BGM2.mp3")
 const BGM3: AudioStream = preload("res://# Assets/Audio/BGM3.wav")
+const BLACKHOLE_LOSE: Texture2D = preload("res://# Assets/Art-Assets/UI/BlackholeEnding.png")
+const TEAR_LOSE: Texture2D = preload("res://# Assets/Art-Assets/UI/LoseScene.png")
 
 @export var bgm_blackhole_distance: float = 2000.0
 @export var bgm_outer_distance: float = 5000.0
@@ -35,7 +37,7 @@ func _on_blackhole_body_entered(body: Node2D) -> void:
 	if body != spaceship or game_finished:
 		return
 
-	show_lose_screen()
+	show_lose_screen(true)
 func _on_stable_orbit_completed() -> void:
 	if game_finished:
 		return
@@ -44,13 +46,15 @@ func _on_stable_orbit_completed() -> void:
 	spaceship.set_process(false)
 	spaceship.set_physics_process(false)
 	win_screen.show()
-func show_lose_screen() -> void:
+func show_lose_screen(consumed_by_blackhole: bool = false) -> void:
 	if game_finished:
 		return
 
 	game_finished = true
 	spaceship.set_process(false)
 	spaceship.set_physics_process(false)
+
+	lose_screen.texture = BLACKHOLE_LOSE if consumed_by_blackhole else TEAR_LOSE
 	lose_screen.show()
 func _process(_delta: float) -> void:
 	update_blackhole_ambience()
