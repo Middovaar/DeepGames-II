@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dhenasjjsqbsv"]
+
+[ext_resource type="Script" uid="uid://e20jb3twydl5" path="res://RetryDialogue.gd" id="1_cqiks"]
+[ext_resource type="PackedScene" uid="uid://y4o3df84lkll" path="res://# Assets/Backgrounds/Background.res" id="2_hxfmd"]
+[ext_resource type="PackedScene" uid="uid://brv7jqbf70wx0" path="res://# Assets/Dialogue/Textbox.res" id="3_enw75"]
+
+[node name="RetryDialogue" type="Control" unique_id=1791034331]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cqiks")
+
+[node name="Background" parent="." unique_id=258432810 instance=ExtResource("2_hxfmd")]
+
+[node name="Textbox" parent="." unique_id=1382413041 instance=ExtResource("3_enw75")]
+layout_mode = 1

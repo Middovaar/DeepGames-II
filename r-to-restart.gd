@@ -1,12 +1,20 @@
 extends Node
 
+@onready var lose_screen: TextureRect = $"../ResultScreen/LoseScreen"
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var restarting: bool = false
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _input(event):
-	if Input.is_action_just_pressed("Restart"):
-		get_tree().reload_current_scene()
+func _input(event: InputEvent) -> void:
+	if restarting or not event.is_action_pressed("Restart"):
+		return
+
+	restarting = true
+
+	if lose_screen.visible:
+		get_tree().call_deferred(
+			"change_scene_to_file",
+			"res://RetryDialogue.tscn"
+		)
+	else:
+		get_tree().call_deferred("reload_current_scene")

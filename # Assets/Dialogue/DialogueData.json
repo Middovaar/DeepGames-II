@@ -47,4 +47,20 @@
 		"Items": 1,
 	},
 	
-}
+	"Retry": {
+		"A": {
+			"text": ["I've ", "failed, ", "That ", "was ", "a ", "nightmare…"],
+			"Speed": 1.0,
+			"Location": 1
+		},
+		"B": {
+			"text": ["There ", "must ", "be ", "something ", "wrong."],
+			"Speed": 1.0
+		},
+		"C": {
+			"text": ["I ", "have ", "always ", "been ", "too ", "obsessed ", "with ", "struggling. ", "Maybe, ", "just ", "maybe, ", "I ", "should ", "try ", "to ", "let ", "it ", "go."],
+			"Speed": 1.0
+		},
+		"Description": "Dialogue before retrying after a loss",
+		"Items": 3
+	}}
