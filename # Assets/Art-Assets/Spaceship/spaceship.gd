@@ -54,7 +54,7 @@ var win_condition_sent: bool = false
 @export var unstable_shake_strength: float = 35.0
 var sprite_base_position: Vector2 = Vector2.ZERO
 
-@export var orbit_exit_hold_time: float = 3.0 
+@export var orbit_exit_hold_time: float = 5.0 
 @export var unstable_inner_radius: float = 5800.0
 @export var unstable_outer_radius: float = 6200.0
 @export var escape_intent_time: float = 1.0
@@ -185,8 +185,8 @@ func _physics_process(delta: float) -> void:
 			else:
 				orbit_camera.zoom = Vector2(0.08, 0.08)
 			orbit_camera.global_position = gravity_source.global_position
-			#return
-		#stable_orbit_time = 0.0
+			return
+		stable_orbit_time = 0.0
 		if direction:
 			velocity += direction * speed
 
@@ -340,3 +340,5 @@ func move_in_auto_orbit() -> void:
 
 	velocity = tangent * orbit_direction * locked_orbit_speed - outward * radius_error * 2.0
 	move_and_slide()
+func is_in_stable_orbit() -> bool:
+	return auto_orbit_active and orbit_state == OrbitState.STABLE
