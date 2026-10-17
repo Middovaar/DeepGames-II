@@ -7,6 +7,10 @@ extends Node2D
 @onready var blackhole_ambience: AudioStreamPlayer = $Audio/BlackHoleAmbience
 
 @onready var bgm: AudioStreamPlayer = $Audio/BGM
+@onready var bgm_next: AudioStreamPlayer = $Audio/BGMNext
+
+@export var bgm_fade_time: float = 2.0
+var bgm_fade: Tween
 
 const BGM1: AudioStream = preload("res://# Assets/Audio/BGM1.mp3")
 const BGM2: AudioStream = preload("res://# Assets/Audio/BGM2.mp3")
@@ -79,7 +83,6 @@ func update_blackhole_ambience() -> void:
 	)
 func update_bgm() -> void:
 	if game_finished:
-		bgm.stop()
 		return
 
 	var target_stream: AudioStream
@@ -93,6 +96,33 @@ func update_bgm() -> void:
 		else:
 			target_stream = BGM2
 
-	if bgm.stream != target_stream:
+	crossfade_to(target_stream)
+func crossfade_to(target_stream: AudioStream) -> void:
+	if bgm.stream == target_stream:
+		return
+
+	if bgm_fade != null and bgm_fade.is_running():
+		return
+
+	# Start the first track immediately.
+	if not bgm.playing and not bgm_next.playing:
 		bgm.stream = target_stream
+		bgm.volume_linear = 1.0
 		bgm.play()
+		return
+
+	var outgoing: AudioStreamPlayer = bgm
+	var incoming: AudioStreamPlayer = bgm_next
+
+	incoming.stream = target_stream
+	incoming.volume_linear = 0.0
+	incoming.play()
+
+	# Swap the roles of the two players.
+	bgm = incoming
+	bgm_next = outgoing
+
+	bgm_fade = create_tween().set_parallel(true)
+	bgm_fade.tween_property(outgoing, "volume_linear", 0.0, bgm_fade_time)
+	bgm_fade.tween_property(incoming, "volume_linear", 1.0, bgm_fade_time)
+	bgm_fade.chain().tween_callback(outgoing.stop)

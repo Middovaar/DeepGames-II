@@ -131,5 +131,7 @@ texture = ExtResource("10_hve3p")
 
 [node name="BGM" type="AudioStreamPlayer" parent="Audio" unique_id=307344038]
 
+[node name="BGMNext" type="AudioStreamPlayer" parent="Audio" unique_id=1490786086]
+
 [node name="BlackHoleAmbience" type="AudioStreamPlayer" parent="Audio" unique_id=53464154]
 stream = ExtResource("11_mfdv2")

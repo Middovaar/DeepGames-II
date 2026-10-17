@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://crmncmmiuxul8" path="res://# Assets/Art-Assets/Main/BlackHoleBlackened.png" id="7_2sn37"]
 [ext_resource type="Shader" uid="uid://xcs8na1ytu0s" path="res://# Assets/Douglas Art/Shaders/radial_lines.gdshader" id="7_y6fyo"]
 [ext_resource type="Texture2D" uid="uid://2ruutigdrn2" path="res://# Assets/Douglas Art/Shaders/black_square.png" id="8_vnpo7"]
+[ext_resource type="AudioStream" uid="uid://cb6xuruvadu5m" path="res://# Assets/Audio/BGM2.mp3" id="10_0jrxm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0jrxm"]
 shader = ExtResource("7_y6fyo")
@@ -489,6 +490,10 @@ next/CutsceneDialogueLoop = &"CutsceneDialogueLoop"
 next/CutsceneGameTime = &"CutsceneIdle"
 next/CutsceneIdle = &"CutsceneIdle"
 next/CutsceneStart = &"CutsceneStart"
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1507253014]
+stream = ExtResource("10_0jrxm")
+autoplay = true
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
 [connection signal="DialogueReq" from="." to="Textbox" method="DialogueRequest"]
