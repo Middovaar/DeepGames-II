@@ -23,7 +23,7 @@ var ReadyText:Array #Word-based Array
 var HasSelectedSomething: bool
 var SelectedOption: bool
 var TextSkipped:int = 1 # 1 = normal speed, 0 = instant skip
-
+var DialogueCounter:int
 
 ## Outgoing Signals >>
 signal FinishedDialogue(DialogueUUID:String)
@@ -129,7 +129,18 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 		$TypeSound.play()
 		DisplayedText += string_part
 		%Text.text = DisplayedText
-		await get_tree().create_timer(AnimationSpeed * blockTextSpeed * TextSkipped).timeout
+		DialogueCounter += 1
+		if TextSkipped == 0:
+			DisplayedText = ""
+			%Text.text = DisplayedText
+			$TypeSound.pitch_scale = randf_range(0.4, 2.0)
+			$TypeSound.play()
+			for skippedstring in ReadyText:
+				DisplayedText += skippedstring
+				%Text.text = DisplayedText
+			TextSkipped = 1
+			break
+		await get_tree().create_timer(AnimationSpeed * blockTextSpeed).timeout
 		
 	TextIsAnimated = false
 	
@@ -152,10 +163,18 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 
 ## Increments Dialogue Block one step forward ATTACH THIS TO A SIGNAL TRIGGER
 func TextIncrement():
+	DialogueCounter = 0
 	emit_signal("advance_dialogue")
+
+func SkipDialogue():
+	if DialogueCounter > 3:
+		TextSkipped = 0
+		DialogueCounter = 0
+	pass
 
 ## Resets displayed Dialogue to text.EMPTYSTRING
 func ClearDialogue():
+	DialogueCounter = 0
 	self.position.x = 50.0 
 	%Text.text = ""
 	DisplayedText = ""
@@ -164,6 +183,8 @@ func ClearDialogue():
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept") and TextIsAnimated != true:
 		TextIncrement()
+	if Input.is_action_just_pressed("ui_accept") and TextIsAnimated == true:
+		SkipDialogue()
 
 func CurrentPosition(PositionID:int) -> float:
 	var RealPosition:float
