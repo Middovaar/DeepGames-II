@@ -30,12 +30,11 @@ script = ExtResource("1_7jktm")
 
 [node name="SpaceDarkness" type="ColorRect" parent="." unique_id=482797354]
 z_as_relative = false
-offset_left = -7874.0
-offset_top = -8361.0
-offset_right = 8517.0
-offset_bottom = 7000.0
+offset_left = -44279.0
+offset_top = -33037.0
+offset_right = 48005.0
+offset_bottom = 33240.0
 color = Color(0, 0, 0, 1)
-metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1793609864]
 position = Vector2(0, -1008)
