@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnyqi8qiic3vf"
+path="res://.godot/imported/spaceconfirm.mp3-8e2677c106d6bd1add13802cf26a4c2a.mp3str"
+
+[deps]
+
+source_file="res://# Assets/Audio/spaceconfirm.mp3"
+dest_files=["res://.godot/imported/spaceconfirm.mp3-8e2677c106d6bd1add13802cf26a4c2a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

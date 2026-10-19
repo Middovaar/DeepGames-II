@@ -125,6 +125,8 @@ func RenderText(DialogueUUID: String, BlockKey: String):
 	# Sequentially concatenate strings and await timer
 	TextIsAnimated = true
 	for string_part in ReadyText:
+		$TypeSound.pitch_scale = randf_range(0.4, 2.0)
+		$TypeSound.play()
 		DisplayedText += string_part
 		%Text.text = DisplayedText
 		await get_tree().create_timer(AnimationSpeed * blockTextSpeed * TextSkipped).timeout

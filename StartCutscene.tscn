@@ -493,6 +493,7 @@ next/CutsceneStart = &"CutsceneStart"
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1507253014]
 stream = ExtResource("10_0jrxm")
+volume_db = -18.0
 autoplay = true
 
 [connection signal="AnimationStageChange" from="." to="." method="_on_animation_stage_change"]
