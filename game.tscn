@@ -28,14 +28,6 @@ shader_parameter/alpha = 0.495
 [node name="main" type="Node2D" unique_id=214245330]
 script = ExtResource("1_7jktm")
 
-[node name="SpaceDarkness" type="ColorRect" parent="." unique_id=482797354]
-z_as_relative = false
-offset_left = -44279.0
-offset_top = -33037.0
-offset_right = 48005.0
-offset_bottom = 33240.0
-color = Color(0, 0, 0, 1)
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1793609864]
 position = Vector2(0, -1008)
 enabled = false
